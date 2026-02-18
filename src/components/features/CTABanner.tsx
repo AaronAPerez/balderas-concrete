@@ -20,10 +20,10 @@ export function CTABanner({
           <h2 className="text-3xl sm:text-4xl font-bold text-white">
             {title}
           </h2>
-          <p className="mt-5 text-slate-300 text-lg leading-relaxed max-w-2xl mx-auto">
+          <p className="pt-5 text-slate-300 text-lg leading-relaxed max-w-2xl mx-auto">
             {subtitle}
           </p>
-          <div className="mt-10 flex flex-col sm:flex-row gap-5 justify-center items-center">
+          <div className="pt-10 flex flex-col sm:flex-row gap-5 justify-center items-center">
             <Button href="/contact" size="lg">
               Get an Estimate
             </Button>

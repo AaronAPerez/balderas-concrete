@@ -51,7 +51,7 @@ export default function ContactPage() {
   const onSubmit = (data: FormValues) => mutation.mutate(data);
 
   const inputStyles =
-    "mt-1 w-full rounded-md border border-slate-300 px-4 py-3 text-base focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand min-h-[44px]";
+    "pt-1 w-full rounded-md border border-slate-300 px-4 py-3 text-base focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand min-h-[44px]";
 
   return (
     <>
@@ -59,7 +59,7 @@ export default function ContactPage() {
       <section className="relative py-16 lg:py-24 bg-brand">
         <Container>
           <div className="text-center max-w-3xl mx-auto">
-            <h1 className="text-4xl sm:text-5xl font-bold text-white mb-6">
+            <h1 className="text-4xl sm:text-5xl font-bold text-white pb-6">
               Contact Us
             </h1>
             <p className="text-xl text-brand-light">
@@ -76,7 +76,7 @@ export default function ContactPage() {
           <div className="grid lg:grid-cols-3 gap-12">
             {/* Contact Info */}
             <div className="lg:col-span-1">
-              <h2 className="text-2xl font-bold text-brand mb-6">
+              <h2 className="text-2xl font-bold text-brand pb-6">
                 Get in Touch
               </h2>
               <div className="space-y-6">
@@ -185,16 +185,16 @@ export default function ContactPage() {
             {/* Contact Form */}
             <div className="lg:col-span-2">
               <div className="bg-white rounded-lg border border-slate-200 p-6 lg:p-8 shadow-sm">
-                <h2 className="text-2xl font-bold text-brand mb-2">
+                <h2 className="text-2xl font-bold text-brand pb-2">
                   Request an Estimate
                 </h2>
-                <p className="text-slate-600 mb-6">
+                <p className="text-slate-600 pb-6">
                   Tell us about your project and we&apos;ll provide a detailed quote.
                 </p>
 
                 {submitted && (
                   <div
-                    className="mb-6 rounded-md bg-green-50 border border-green-200 p-4 text-green-800"
+                    className="pb-6 rounded-md bg-green-50 border border-green-200 p-4 text-green-800"
                     role="alert"
                   >
                     <div className="flex items-center gap-2">
@@ -221,7 +221,7 @@ export default function ContactPage() {
 
                 {mutation.isError && (
                   <div
-                    className="mb-6 rounded-md bg-red-50 border border-red-200 p-4 text-red-800"
+                    className="pb-6 rounded-md bg-red-50 border border-red-200 p-4 text-red-800"
                     role="alert"
                   >
                     <span className="font-medium">
@@ -239,7 +239,7 @@ export default function ContactPage() {
                     <div>
                       <label
                         htmlFor="name"
-                        className="block text-sm font-medium text-slate-700 mb-1"
+                        className="block text-sm font-medium text-slate-700 pb-1"
                       >
                         Name <span className="text-red-500">*</span>
                       </label>
@@ -250,7 +250,7 @@ export default function ContactPage() {
                         aria-invalid={errors.name ? "true" : "false"}
                       />
                       {errors.name && (
-                        <p className="mt-1 text-sm text-red-600" role="alert">
+                        <p className="pt-1 text-sm text-red-600" role="alert">
                           {errors.name.message}
                         </p>
                       )}
@@ -259,7 +259,7 @@ export default function ContactPage() {
                     <div>
                       <label
                         htmlFor="email"
-                        className="block text-sm font-medium text-slate-700 mb-1"
+                        className="block text-sm font-medium text-slate-700 pb-1"
                       >
                         Email <span className="text-red-500">*</span>
                       </label>
@@ -271,7 +271,7 @@ export default function ContactPage() {
                         aria-invalid={errors.email ? "true" : "false"}
                       />
                       {errors.email && (
-                        <p className="mt-1 text-sm text-red-600" role="alert">
+                        <p className="pt-1 text-sm text-red-600" role="alert">
                           {errors.email.message}
                         </p>
                       )}
@@ -282,7 +282,7 @@ export default function ContactPage() {
                     <div>
                       <label
                         htmlFor="phone"
-                        className="block text-sm font-medium text-slate-700 mb-1"
+                        className="block text-sm font-medium text-slate-700 pb-1"
                       >
                         Phone
                       </label>
@@ -297,7 +297,7 @@ export default function ContactPage() {
                     <div>
                       <label
                         htmlFor="city"
-                        className="block text-sm font-medium text-slate-700 mb-1"
+                        className="block text-sm font-medium text-slate-700 pb-1"
                       >
                         City
                       </label>
@@ -313,7 +313,7 @@ export default function ContactPage() {
                     <div>
                       <label
                         htmlFor="service"
-                        className="block text-sm font-medium text-slate-700 mb-1"
+                        className="block text-sm font-medium text-slate-700 pb-1"
                       >
                         Service Type
                       </label>
@@ -335,7 +335,7 @@ export default function ContactPage() {
                     <div>
                       <label
                         htmlFor="budget"
-                        className="block text-sm font-medium text-slate-700 mb-1"
+                        className="block text-sm font-medium text-slate-700 pb-1"
                       >
                         Budget Range
                       </label>
@@ -357,7 +357,7 @@ export default function ContactPage() {
                   <div>
                     <label
                       htmlFor="message"
-                      className="block text-sm font-medium text-slate-700 mb-1"
+                      className="block text-sm font-medium text-slate-700 pb-1"
                     >
                       Project Details <span className="text-red-500">*</span>
                     </label>
@@ -370,7 +370,7 @@ export default function ContactPage() {
                       aria-invalid={errors.message ? "true" : "false"}
                     />
                     {errors.message && (
-                      <p className="mt-1 text-sm text-red-600" role="alert">
+                      <p className="pt-1 text-sm text-red-600" role="alert">
                         {errors.message.message}
                       </p>
                     )}

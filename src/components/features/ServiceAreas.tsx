@@ -20,7 +20,7 @@ export function ServiceAreas() {
             </span>
           ))}
         </div>
-        <p className="text-center text-slate-500 text-sm mt-10 max-w-lg mx-auto">
+        <p className="text-center text-slate-500 text-sm pt-10 max-w-lg mx-auto">
           Don&apos;t see your area? Contact us – we may still be able to help!
         </p>
       </Container>

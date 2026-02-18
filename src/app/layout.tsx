@@ -92,6 +92,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        {/* Preload LCP image for faster rendering */}
+        <link
+          rel="preload"
+          as="image"
+          href="/images/concrete/1000035716.jpg"
+          imageSrcSet="/images/concrete/1000035716.jpg 1920w"
+          fetchPriority="high"
+        />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white text-slate-900`}
       >

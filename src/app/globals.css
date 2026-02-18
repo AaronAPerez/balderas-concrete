@@ -49,9 +49,9 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Remove default margin for common elements */
+/* Remove default vertical margin for common elements (preserves horizontal for mx-auto) */
 h1, h2, h3, h4, h5, h6, p {
-  margin: 0;
+  margin-block: 0;
 }
 
 /* Ensure images don't exceed their container */

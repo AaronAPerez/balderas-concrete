@@ -17,13 +17,13 @@ export function Footer() {
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-12">
           {/* Company info */}
           <div>
-            <div className="flex items-center gap-2 mb-5">
+            <div className="flex items-center gap-2 pb-5">
               <div className="w-10 h-10 bg-accent rounded-md flex items-center justify-center">
                 <span className="text-white font-bold text-lg">BC</span>
               </div>
               <span className="font-bold text-xl">{siteConfig.name}</span>
             </div>
-            <p className="text-slate-300 text-sm leading-relaxed mb-5">
+            <p className="text-slate-300 text-sm leading-relaxed pb-5">
               {siteConfig.tagline}. Serving the greater Houston area with
               quality concrete work for over 15 years.
             </p>
@@ -32,7 +32,7 @@ export function Footer() {
 
           {/* Services links */}
           <div>
-            <h3 className="font-semibold text-lg mb-5">Our Services</h3>
+            <h3 className="font-semibold text-lg pb-5">Our Services</h3>
             <ul className="space-y-3">
               {services.slice(0, 6).map((service) => (
                 <li key={service.id}>
@@ -49,7 +49,7 @@ export function Footer() {
 
           {/* Quick links */}
           <div>
-            <h3 className="font-semibold text-lg mb-5">Quick Links</h3>
+            <h3 className="font-semibold text-lg pb-5">Quick Links</h3>
             <ul className="space-y-3">
               {navigation.main.map((item) => (
                 <li key={item.name}>
@@ -66,7 +66,7 @@ export function Footer() {
 
           {/* Contact info */}
           <div>
-            <h3 className="font-semibold text-lg mb-5">Contact Us</h3>
+            <h3 className="font-semibold text-lg pb-5">Contact Us</h3>
             <ul className="space-y-4">
               <li>
                 <a
@@ -140,7 +140,7 @@ export function Footer() {
 
         {/* Service areas */}
         <div className="mt-14 pt-10 border-t border-slate-700">
-          <h3 className="font-semibold text-lg mb-5">Service Areas</h3>
+          <h3 className="font-semibold text-lg pb-5">Service Areas</h3>
           <p className="text-slate-300 text-sm">
             Proudly serving: {serviceAreas.join(" • ")}
           </p>

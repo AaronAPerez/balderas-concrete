@@ -22,7 +22,7 @@ export default function GalleryPage() {
       <section className="relative py-16 lg:py-24 bg-brand">
         <Container>
           <div className="text-center max-w-3xl mx-auto">
-            <h1 className="text-4xl sm:text-5xl font-bold text-white mb-6">
+            <h1 className="text-4xl sm:text-5xl font-bold text-white pb-6">
               Our Work
             </h1>
             <p className="text-xl text-brand-light">
