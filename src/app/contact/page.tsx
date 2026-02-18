@@ -5,15 +5,17 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
+import { Container } from "@/src/components/ui/Container";
+import { contactInfo, services } from "@/src/lib/constants";
 
 const schema = z.object({
-  name: z.string().min(2),
-  email: z.string().email(),
+  name: z.string().min(2, "Name must be at least 2 characters"),
+  email: z.string().email("Please enter a valid email"),
   phone: z.string().optional(),
   service: z.string().optional(),
   city: z.string().optional(),
   budget: z.string().optional(),
-  message: z.string().min(10),
+  message: z.string().min(10, "Please provide at least 10 characters"),
 });
 
 type FormValues = z.infer<typeof schema>;
@@ -21,7 +23,12 @@ type FormValues = z.infer<typeof schema>;
 export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
 
-  const { register, handleSubmit, formState: { errors }, reset } = useForm<FormValues>({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm<FormValues>({
     resolver: zodResolver(schema),
   });
 
@@ -43,131 +50,370 @@ export default function ContactPage() {
 
   const onSubmit = (data: FormValues) => mutation.mutate(data);
 
+  const inputStyles =
+    "mt-1 w-full rounded-md border border-slate-300 px-4 py-3 text-base focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand min-h-[44px]";
+
   return (
-    <main className="min-h-screen bg-slate-50">
-      <section className="mx-auto max-w-3xl px-4 py-16">
-        <h1 className="text-3xl font-bold text-brand mb-4">
-          Contact Balderas Concrete
-        </h1>
-        <p className="mb-8 text-slate-700">
-          Tell us about your project and we’ll get back to you with a free estimate.
-        </p>
-
-        {submitted && (
-          <div className="mb-6 rounded-md bg-green-50 p-4 text-green-800">
-            Thank you! We’ve received your message.
+    <>
+      {/* Hero Section */}
+      <section className="relative py-16 lg:py-24 bg-brand">
+        <Container>
+          <div className="text-center max-w-3xl mx-auto">
+            <h1 className="text-4xl sm:text-5xl font-bold text-white mb-6">
+              Contact Us
+            </h1>
+            <p className="text-xl text-brand-light">
+              Request an estimate for your concrete project. We&apos;ll get back to
+              you within 24 hours.
+            </p>
           </div>
-        )}
-
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className="space-y-4"
-          aria-label="Contact form"
-        >
-          <div>
-            <label className="block text-sm font-medium text-slate-700">
-              Name
-            </label>
-            <input
-              {...register("name")}
-              className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand"
-            />
-            {errors.name && (
-              <p className="mt-1 text-xs text-red-600">
-                {errors.name.message}
-              </p>
-            )}
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-slate-700">
-              Email
-            </label>
-            <input
-              type="email"
-              {...register("email")}
-              className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand"
-            />
-            {errors.email && (
-              <p className="mt-1 text-xs text-red-600">
-                {errors.email.message}
-              </p>
-            )}
-          </div>
-
-          <div className="grid gap-4 md:grid-cols-3">
-            <div>
-              <label className="block text-sm font-medium text-slate-700">
-                Phone
-              </label>
-              <input
-                {...register("phone")}
-                className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-slate-700">
-                City
-              </label>
-              <input
-                {...register("city")}
-                className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-slate-700">
-                Budget range
-              </label>
-              <input
-                {...register("budget")}
-                className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand"
-              />
-            </div>
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-slate-700">
-              Service type
-            </label>
-            <select
-              {...register("service")}
-              className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand"
-            >
-              <option value="">Select a service</option>
-              <option value="driveway">Driveway</option>
-              <option value="patio">Patio</option>
-              <option value="foundation">Foundation</option>
-              <option value="sidewalk">Sidewalk</option>
-              <option value="stamped">Stamped concrete</option>
-              <option value="other">Other</option>
-            </select>
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-slate-700">
-              Project details
-            </label>
-            <textarea
-              {...register("message")}
-              rows={5}
-              className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand"
-            />
-            {errors.message && (
-              <p className="mt-1 text-xs text-red-600">
-                {errors.message.message}
-              </p>
-            )}
-          </div>
-
-          <button
-            type="submit"
-            disabled={mutation.isPending}
-            className="inline-flex w-full items-center justify-center rounded-md bg-accent px-4 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-accent/90 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 md:w-auto"
-          >
-            {mutation.isPending ? "Sending..." : "Submit request"}
-          </button>
-        </form>
+        </Container>
       </section>
-    </main>
+
+      {/* Contact Section */}
+      <section className="py-16 lg:py-24">
+        <Container>
+          <div className="grid lg:grid-cols-3 gap-12">
+            {/* Contact Info */}
+            <div className="lg:col-span-1">
+              <h2 className="text-2xl font-bold text-brand mb-6">
+                Get in Touch
+              </h2>
+              <div className="space-y-6">
+                <a
+                  href={`tel:${contactInfo.phoneRaw}`}
+                  className="flex items-start gap-4 text-slate-700 hover:text-accent transition-colors group"
+                >
+                  <div className="w-12 h-12 rounded-lg bg-brand/10 flex items-center justify-center shrink-0 group-hover:bg-accent/10 transition-colors">
+                    <svg
+                      className="w-6 h-6 text-brand group-hover:text-accent transition-colors"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+                      />
+                    </svg>
+                  </div>
+                  <div>
+                    <p className="font-semibold">Phone</p>
+                    <p className="text-lg">{contactInfo.phone}</p>
+                  </div>
+                </a>
+
+                <a
+                  href={`mailto:${contactInfo.email}`}
+                  className="flex items-start gap-4 text-slate-700 hover:text-accent transition-colors group"
+                >
+                  <div className="w-12 h-12 rounded-lg bg-brand/10 flex items-center justify-center shrink-0 group-hover:bg-accent/10 transition-colors">
+                    <svg
+                      className="w-6 h-6 text-brand group-hover:text-accent transition-colors"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                      />
+                    </svg>
+                  </div>
+                  <div>
+                    <p className="font-semibold">Email</p>
+                    <p className="text-lg">{contactInfo.email}</p>
+                  </div>
+                </a>
+
+                <div className="flex items-start gap-4 text-slate-700">
+                  <div className="w-12 h-12 rounded-lg bg-brand/10 flex items-center justify-center shrink-0">
+                    <svg
+                      className="w-6 h-6 text-brand"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                      />
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                      />
+                    </svg>
+                  </div>
+                  <div>
+                    <p className="font-semibold">Address</p>
+                    <p>{contactInfo.address.full}</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4 text-slate-700">
+                  <div className="w-12 h-12 rounded-lg bg-brand/10 flex items-center justify-center shrink-0">
+                    <svg
+                      className="w-6 h-6 text-brand"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                      />
+                    </svg>
+                  </div>
+                  <div>
+                    <p className="font-semibold">Business Hours</p>
+                    <p>{contactInfo.hours}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Contact Form */}
+            <div className="lg:col-span-2">
+              <div className="bg-white rounded-lg border border-slate-200 p-6 lg:p-8 shadow-sm">
+                <h2 className="text-2xl font-bold text-brand mb-2">
+                  Request an Estimate
+                </h2>
+                <p className="text-slate-600 mb-6">
+                  Tell us about your project and we&apos;ll provide a detailed quote.
+                </p>
+
+                {submitted && (
+                  <div
+                    className="mb-6 rounded-md bg-green-50 border border-green-200 p-4 text-green-800"
+                    role="alert"
+                  >
+                    <div className="flex items-center gap-2">
+                      <svg
+                        className="w-5 h-5"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M5 13l4 4L19 7"
+                        />
+                      </svg>
+                      <span className="font-medium">
+                        Thank you! We&apos;ve received your message and will contact
+                        you within 24 hours.
+                      </span>
+                    </div>
+                  </div>
+                )}
+
+                {mutation.isError && (
+                  <div
+                    className="mb-6 rounded-md bg-red-50 border border-red-200 p-4 text-red-800"
+                    role="alert"
+                  >
+                    <span className="font-medium">
+                      Something went wrong. Please try again or call us directly.
+                    </span>
+                  </div>
+                )}
+
+                <form
+                  onSubmit={handleSubmit(onSubmit)}
+                  className="space-y-5"
+                  aria-label="Contact form"
+                >
+                  <div className="grid sm:grid-cols-2 gap-5">
+                    <div>
+                      <label
+                        htmlFor="name"
+                        className="block text-sm font-medium text-slate-700 mb-1"
+                      >
+                        Name <span className="text-red-500">*</span>
+                      </label>
+                      <input
+                        id="name"
+                        {...register("name")}
+                        className={inputStyles}
+                        aria-invalid={errors.name ? "true" : "false"}
+                      />
+                      {errors.name && (
+                        <p className="mt-1 text-sm text-red-600" role="alert">
+                          {errors.name.message}
+                        </p>
+                      )}
+                    </div>
+
+                    <div>
+                      <label
+                        htmlFor="email"
+                        className="block text-sm font-medium text-slate-700 mb-1"
+                      >
+                        Email <span className="text-red-500">*</span>
+                      </label>
+                      <input
+                        id="email"
+                        type="email"
+                        {...register("email")}
+                        className={inputStyles}
+                        aria-invalid={errors.email ? "true" : "false"}
+                      />
+                      {errors.email && (
+                        <p className="mt-1 text-sm text-red-600" role="alert">
+                          {errors.email.message}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="grid sm:grid-cols-2 gap-5">
+                    <div>
+                      <label
+                        htmlFor="phone"
+                        className="block text-sm font-medium text-slate-700 mb-1"
+                      >
+                        Phone
+                      </label>
+                      <input
+                        id="phone"
+                        type="tel"
+                        {...register("phone")}
+                        className={inputStyles}
+                      />
+                    </div>
+
+                    <div>
+                      <label
+                        htmlFor="city"
+                        className="block text-sm font-medium text-slate-700 mb-1"
+                      >
+                        City
+                      </label>
+                      <input
+                        id="city"
+                        {...register("city")}
+                        className={inputStyles}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid sm:grid-cols-2 gap-5">
+                    <div>
+                      <label
+                        htmlFor="service"
+                        className="block text-sm font-medium text-slate-700 mb-1"
+                      >
+                        Service Type
+                      </label>
+                      <select
+                        id="service"
+                        {...register("service")}
+                        className={inputStyles}
+                      >
+                        <option value="">Select a service</option>
+                        {services.map((service) => (
+                          <option key={service.id} value={service.id}>
+                            {service.title}
+                          </option>
+                        ))}
+                        <option value="other">Other</option>
+                      </select>
+                    </div>
+
+                    <div>
+                      <label
+                        htmlFor="budget"
+                        className="block text-sm font-medium text-slate-700 mb-1"
+                      >
+                        Budget Range
+                      </label>
+                      <select
+                        id="budget"
+                        {...register("budget")}
+                        className={inputStyles}
+                      >
+                        <option value="">Select budget range</option>
+                        <option value="under-5k">Under $5,000</option>
+                        <option value="5k-10k">$5,000 - $10,000</option>
+                        <option value="10k-25k">$10,000 - $25,000</option>
+                        <option value="25k-50k">$25,000 - $50,000</option>
+                        <option value="over-50k">Over $50,000</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div>
+                    <label
+                      htmlFor="message"
+                      className="block text-sm font-medium text-slate-700 mb-1"
+                    >
+                      Project Details <span className="text-red-500">*</span>
+                    </label>
+                    <textarea
+                      id="message"
+                      {...register("message")}
+                      rows={5}
+                      className={`${inputStyles} resize-none`}
+                      placeholder="Tell us about your project - size, timeline, special requirements..."
+                      aria-invalid={errors.message ? "true" : "false"}
+                    />
+                    {errors.message && (
+                      <p className="mt-1 text-sm text-red-600" role="alert">
+                        {errors.message.message}
+                      </p>
+                    )}
+                  </div>
+
+                  <button
+                    type="submit"
+                    disabled={mutation.isPending}
+                    className="inline-flex w-full sm:w-auto items-center justify-center rounded-md bg-accent px-8 py-4 text-base font-semibold text-white shadow-sm transition hover:bg-accent/90 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed min-h-13"
+                  >
+                    {mutation.isPending ? (
+                      <>
+                        <svg
+                          className="animate-spin -ml-1 mr-2 h-5 w-5"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                        >
+                          <circle
+                            className="opacity-25"
+                            cx="12"
+                            cy="12"
+                            r="10"
+                            stroke="currentColor"
+                            strokeWidth="4"
+                          />
+                          <path
+                            className="opacity-75"
+                            fill="currentColor"
+                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                          />
+                        </svg>
+                        Sending...
+                      </>
+                    ) : (
+                      "Submit Request"
+                    )}
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </Container>
+      </section>
+    </>
   );
 }
