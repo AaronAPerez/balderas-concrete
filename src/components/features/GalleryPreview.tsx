@@ -3,6 +3,12 @@ import Link from "next/link";
 import { Container } from "@/src/components/ui/Container";
 import { SectionHeading } from "@/src/components/ui/SectionHeading";
 import { Button } from "@/src/components/ui/Button";
+import blurPlaceholders from "@/src/data/blur-placeholders.json";
+
+function getBlurDataUrl(imagePath: string): string | undefined {
+  const fileName = imagePath.split("/").pop()?.replace(/\.[^/.]+$/, "");
+  return fileName ? blurPlaceholders[fileName as keyof typeof blurPlaceholders] : undefined;
+}
 
 const previewImages = [
   { src: "/images/concrete/1000035716.jpg", alt: "Concrete driveway project" },
@@ -31,6 +37,8 @@ export function GalleryPreview() {
                 fill
                 className="object-cover transition-transform duration-300 group-hover:scale-105"
                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                placeholder="blur"
+                blurDataURL={getBlurDataUrl(image.src)}
               />
               <div className="absolute inset-0 bg-brand-dark/0 group-hover:bg-brand-dark/20 transition-colors" />
             </Link>

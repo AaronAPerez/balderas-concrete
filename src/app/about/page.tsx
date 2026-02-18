@@ -18,7 +18,7 @@ export default function AboutPage() {
       <section className="relative py-16 lg:py-24 bg-brand">
         <Container>
           <div className="text-center max-w-3xl mx-auto">
-            <h1 className="text-4xl sm:text-5xl font-bold text-white mb-6">
+            <h1 className="text-4xl sm:text-5xl font-bold text-white pb-6">
               About Balderas Concrete
             </h1>
             <p className="text-xl text-brand-light">
@@ -33,7 +33,7 @@ export default function AboutPage() {
         <Container>
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="text-3xl font-bold text-brand mb-6">Our Story</h2>
+              <h2 className="text-3xl font-bold text-brand pb-6">Our Story</h2>
               <div className="space-y-4 text-slate-600 leading-relaxed">
                 <p>
                   Balderas Concrete was founded with a simple mission: to provide
@@ -98,7 +98,7 @@ export default function AboutPage() {
               {
                 title: "Experienced Team",
                 description:
-                  "Our skilled craftsmen bring decades of combined experience to every project we undertake.",
+                  "Our skilled craftsmen bring decades of copbined experience to every project we undertake.",
                 icon: (
                   <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
@@ -117,10 +117,10 @@ export default function AboutPage() {
               },
             ].map((value, index) => (
               <div key={index} className="text-center">
-                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-brand/10 text-brand mb-4">
+                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-brand/10 text-brand pb-4">
                   {value.icon}
                 </div>
-                <h3 className="text-lg font-semibold text-brand mb-2">
+                <h3 className="text-lg font-semibold text-brand pb-2">
                   {value.title}
                 </h3>
                 <p className="text-slate-600 text-sm leading-relaxed">
@@ -136,7 +136,7 @@ export default function AboutPage() {
       <section className="py-16 lg:py-24">
         <Container>
           <div className="bg-white rounded-lg border border-slate-200 p-8 lg:p-12 max-w-3xl mx-auto text-center">
-            <h2 className="text-2xl font-bold text-brand mb-6">Get in Touch</h2>
+            <h2 className="text-2xl font-bold text-brand pb-6">Get in Touch</h2>
             <div className="space-y-4">
               <p className="text-slate-600">
                 Ready to discuss your project? We&apos;d love to hear from you.

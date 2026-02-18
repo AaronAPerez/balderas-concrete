@@ -9,7 +9,8 @@
     "start": "next start",
     "lint": "eslint",
     "db:generate": "prisma generate",
-    "db:push": "prisma db push"
+    "db:push": "prisma db push",
+    "optimize-images": "node scripts/optimize-images.js"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
@@ -35,6 +36,7 @@
     "eslint": "^10.0.0",
     "eslint-config-next": "^0.2.4",
     "prisma": "^6.19.2",
+    "sharp": "^0.34.5",
     "tailwindcss": "^4.1.18",
     "typescript": "^5"
   }

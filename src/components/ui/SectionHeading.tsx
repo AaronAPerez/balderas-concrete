@@ -12,10 +12,18 @@ export function SectionHeading({
   className = "",
 }: SectionHeadingProps) {
   return (
-    <div className={`mb-14 ${centered ? "text-center" : ""} ${className}`}>
-      <h2 className="text-3xl font-bold text-brand sm:text-4xl">{title}</h2>
+    <div
+      className={`mb-14 ${centered ? "flex flex-col items-center" : ""} ${className}`}
+    >
+      <h2
+        className={`text-3xl font-bold text-brand sm:text-4xl ${centered ? "text-center" : ""}`}
+      >
+        {title}
+      </h2>
       {subtitle && (
-        <p className="mt-5 text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
+        <p
+          className={`pt-6 text-lg text-slate-600 max-w-2xl leading-relaxed ${centered ? "text-center" : ""}`}
+        >
           {subtitle}
         </p>
       )}

@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Button } from "@/src/components/ui/Button";
 import { Container } from "@/src/components/ui/Container";
+import blurPlaceholders from "@/src/data/blur-placeholders.json";
 
 interface HeroSectionProps {
   title: string;
@@ -14,6 +15,11 @@ interface HeroSectionProps {
     text: string;
     href: string;
   };
+}
+
+function getBlurDataUrl(imagePath: string): string | undefined {
+  const fileName = imagePath.split("/").pop()?.replace(/\.[^/.]+$/, "");
+  return fileName ? blurPlaceholders[fileName as keyof typeof blurPlaceholders] : undefined;
 }
 
 export function HeroSection({
@@ -35,17 +41,19 @@ export function HeroSection({
           priority
           fetchPriority="high"
           sizes="(max-width: 640px) 640px, (max-width: 1024px) 1024px, 1920px"
+          placeholder="blur"
+          blurDataURL={getBlurDataUrl(backgroundImage)}
         />
         <div className="absolute inset-0 bg-linear-to-r from-brand-dark/90 via-brand-dark/70 to-brand-dark/50" />
       </div>
 
       {/* Content */}
       <Container className="relative z-10 py-20 lg:py-28">
-        <div className="max-w-2xl">
+        <div className="max-w-3xl">
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight">
             {title}
           </h1>
-          <p className="mt-6 text-lg sm:text-xl text-slate-200 leading-relaxed max-w-xl">
+          <p className="pt-6 text-lg sm:text-xl text-slate-200 leading-relaxed max-w-xl">
             {subtitle}
           </p>
           <div className="mt-10 flex flex-col sm:flex-row gap-4">

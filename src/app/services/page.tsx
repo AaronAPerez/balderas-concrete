@@ -26,7 +26,7 @@ export default function ServicesPage() {
       <section className="relative py-16 lg:py-24 bg-brand">
         <Container>
           <div className="text-center max-w-3xl mx-auto">
-            <h1 className="text-4xl sm:text-5xl font-bold text-white mb-6">
+            <h1 className="text-4xl sm:text-5xl font-bold text-white pb-6">
               Our Concrete Services
             </h1>
             <p className="text-xl text-brand-light">
@@ -50,10 +50,10 @@ export default function ServicesPage() {
                 }`}
               >
                 <div className={index % 2 === 1 ? "lg:order-2" : ""}>
-                  <h2 className="text-3xl font-bold text-brand mb-4">
+                  <h2 className="text-3xl font-bold text-brand pb-4">
                     {service.title}
                   </h2>
-                  <p className="text-slate-600 leading-relaxed mb-6">
+                  <p className="text-slate-600 leading-relaxed pb-6">
                     {service.description}
                   </p>
                   <ul className="space-y-3 mb-8">
@@ -101,7 +101,7 @@ export default function ServicesPage() {
       <section className="py-16 lg:py-24 bg-slate-50">
         <Container>
           <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-3xl font-bold text-brand mb-6">
+            <h2 className="text-3xl font-bold text-brand pb-6">
               Quality Materials & Expert Craftsmanship
             </h2>
             <p className="text-slate-600 leading-relaxed mb-8">
