@@ -53,7 +53,7 @@ export default function AboutPage() {
                 </p>
               </div>
             </div>
-            <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
+            <div className="relative aspect-4/3 rounded-lg overflow-hidden">
               <Image
                 src="/images/concrete/1000035716.jpg"
                 alt="Balderas Concrete team at work"
