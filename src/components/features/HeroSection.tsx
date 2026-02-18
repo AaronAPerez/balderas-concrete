@@ -1,0 +1,63 @@
+import Image from "next/image";
+import { Button } from "@/src/components/ui/Button";
+import { Container } from "@/src/components/ui/Container";
+
+interface HeroSectionProps {
+  title: string;
+  subtitle: string;
+  backgroundImage?: string;
+  primaryCta?: {
+    text: string;
+    href: string;
+  };
+  secondaryCta?: {
+    text: string;
+    href: string;
+  };
+}
+
+export function HeroSection({
+  title,
+  subtitle,
+  backgroundImage = "/images/concrete/1000035716.jpg",
+  primaryCta = { text: "Get an Estimate", href: "/contact" },
+  secondaryCta = { text: "View Our Work", href: "/gallery" },
+}: HeroSectionProps) {
+  return (
+    <section className="relative min-h-150 lg:min-h-175 flex items-center">
+      {/* Background image with overlay */}
+      <div className="absolute inset-0 z-0">
+        <Image
+          src={backgroundImage}
+          alt="Professional concrete work"
+          fill
+          className="object-cover"
+          priority
+          fetchPriority="high"
+          sizes="(max-width: 640px) 640px, (max-width: 1024px) 1024px, 1920px"
+        />
+        <div className="absolute inset-0 bg-linear-to-r from-brand-dark/90 via-brand-dark/70 to-brand-dark/50" />
+      </div>
+
+      {/* Content */}
+      <Container className="relative z-10 py-20 lg:py-28">
+        <div className="max-w-2xl">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight">
+            {title}
+          </h1>
+          <p className="mt-6 text-lg sm:text-xl text-slate-200 leading-relaxed max-w-xl">
+            {subtitle}
+          </p>
+          <div className="mt-10 flex flex-col sm:flex-row gap-4">
+            <Button href={primaryCta.href} size="lg">
+              {primaryCta.text}
+            </Button>
+            <Button href={secondaryCta.href} variant="outline" size="lg" className="border-white text-white hover:bg-white hover:text-brand-dark">
+              {secondaryCta.text}
+            </Button>
+          </div>
+        </div>
+      </Container>
+    </section>
+  );
+}
