@@ -1,6 +1,8 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
+  /* Dark mode follows user's system preference automatically */
+  darkMode: "media",
   content: [
     "./src/app/**/*.{ts,tsx}",
     "./src/components/**/*.{ts,tsx}",
@@ -8,14 +10,46 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        /* Background and foreground - uses CSS variables for dark mode */
+        background: "var(--background)",
+        foreground: "var(--foreground)",
+
+        /* Primary brand color - Bold Orange from logo */
         brand: {
-          DEFAULT: "#1E3A8A",
-          light: "#3B82F6",
-          dark: "#1E293B",
+          DEFAULT: "#F26522",
+          light: "#F5833D",
+          dark: "#D94E0F",
         },
+        /* Orange alias for convenience - same as brand */
+        orange: {
+          DEFAULT: "#F26522",
+          light: "#F5833D",
+          dark: "#D94E0F",
+        },
+        /* Secondary color - Concrete Gray from logo */
+        concrete: {
+          DEFAULT: "#6B6B6B",
+          light: "#8C8C8C",
+          dark: "#4A4A4A",
+        },
+        /* Accent colors for UI elements */
         accent: {
-          DEFAULT: "#F97316",
+          DEFAULT: "#F26522",
+          hover: "#D94E0F",
         },
+        /* Black for text and dark elements */
+        black: {
+          DEFAULT: "#000000",
+          soft: "#1a1a1a",
+        },
+      },
+      /* Background color for body - references CSS variable */
+      // backgroundColor: {
+      //   DEFAULT: "var(--background)",
+      // },
+      /* Text color - references CSS variable */
+      textColor: {
+        DEFAULT: "var(--foreground)",
       },
       fontFamily: {
         sans: ["var(--font-geist-sans)", "Arial", "Helvetica", "sans-serif"],
@@ -31,6 +65,8 @@ const config: Config = {
       },
       minHeight: {
         "touch": "44px",
+        "150": "37.5rem",  /* 600px - Hero section mobile */
+        "175": "43.75rem", /* 700px - Hero section desktop */
       },
       animation: {
         "fade-in": "fadeIn 0.5s ease-out",

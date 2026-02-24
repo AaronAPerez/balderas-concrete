@@ -5,13 +5,16 @@ import { Resend } from "resend";
 
 
 const contactSchema = z.object({
-  name: z.string().min(2),
-  email: z.string().email(),
+  name: z.string().min(2).max(50),
+    email: z.string().min(5).max(100).refine(
+    (val) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val),
+    { message: 'Invalid email address' }
+  ),
   phone: z.string().optional(),
   service: z.string().optional(),
   city: z.string().optional(),
   budget: z.string().optional(),
-  message: z.string().min(10),
+  message: z.string().min(10).max(1000),
 });
 
 const resend = new Resend(process.env.RESEND_API_KEY);
@@ -26,7 +29,8 @@ export async function POST(req: Request) {
 
     // Notify company
     await resend.emails.send({
-      from: "Balderas Concrete <no-reply@balderasconcrete.com>",
+      from: "Balderas Concrete <no-reply@test.aaronaperez.dev>",
+      // from: "Balderas Concrete <no-reply@balderasconcrete.com>",
       to: process.env.CONTACT_NOTIFICATION_EMAIL!,
       subject: `New contact from ${data.name}`,
       text: `
@@ -44,7 +48,8 @@ ${data.message}
 
     // Auto-reply to client
     await resend.emails.send({
-      from: "Balderas Concrete <no-reply@balderasconcrete.com>",
+      from: "Balderas Concrete <no-reply@test.aaronaperez.dev>",
+      // from: "Balderas Concrete <no-reply@balderasconcrete.com>",
       to: data.email,
       subject: "We received your request – Balderas Concrete",
       text: `
