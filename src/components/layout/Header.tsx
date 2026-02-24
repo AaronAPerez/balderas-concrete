@@ -6,7 +6,6 @@ import { useUIStore } from "@/src/store/uiStore";
 import { navigation, siteConfig, contactInfo } from "@/src/lib/constants";
 import { Button } from "@/src/components/ui/Button";
 import Image from "next/image";
-import { Topbar } from "./Topbar";
 
 export function Header() {
   const pathname = usePathname();
@@ -16,7 +15,6 @@ export function Header() {
     <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border border-[#6B6B6B]">
     {/* <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border border-slate-200 dark:bg-[#121212]/95  dark:border-slate-700"> */}
       {/* Top bar with contact info - hidden on mobile */}
-      {/* <Topbar/> */}
       <div className="hidden sm:block bg-orange-500 text-sm">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-1 flex justify-between items-center text-slate-900 font-medium">
           <a
