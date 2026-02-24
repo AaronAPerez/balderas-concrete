@@ -5,6 +5,7 @@ import { serviceAreas } from "@/src/lib/constants";
 export function ServiceAreas() {
   return (
     <section className="py-20 lg:py-28 bg-slate-50">
+    {/* <section className="py-20 lg:py-28 bg-slate-50 dark:bg-slate-900"> */}
       <Container>
         <SectionHeading
           title="Areas We Serve"
@@ -16,11 +17,16 @@ export function ServiceAreas() {
               key={area}
               className="px-4 py-2 bg-white rounded-full text-slate-700 border border-slate-200 text-sm font-medium"
             >
+            {/* <span
+              key={area}
+              className="px-4 py-2 bg-white dark:bg-slate-800 rounded-full text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 text-sm font-medium"
+            > */}
               {area}, TX
             </span>
           ))}
         </div>
         <p className="text-center text-slate-500 text-sm pt-10 max-w-lg mx-auto">
+        {/* <p className="text-center text-slate-500 dark:text-slate-400 text-sm pt-10 max-w-lg mx-auto"> */}
           Don&apos;t see your area? Contact us – we may still be able to help!
         </p>
       </Container>

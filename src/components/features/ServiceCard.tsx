@@ -47,7 +47,8 @@ export function ServiceCard({ id, title, description, icon }: ServiceCardProps) 
   return (
     <Link
       href={`/services#${id}`}
-      className="group block p-6 bg-white rounded-lg border border-slate-200 shadow-sm hover:shadow-md hover:border-brand/30 transition-all duration-200"
+      className="group block p-6 bg-white rounded-lg border border-slate-200 shadow-sm hover:shadow-md hover:border-brand/30 dark:hover:border-brand/50 transition-all duration-200"
+      // className="group block p-6 bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-md hover:border-brand/30 dark:hover:border-brand/50 transition-all duration-200"
     >
       <div className="w-14 h-14 rounded-lg bg-brand/10 text-brand flex items-center justify-center mb-4 group-hover:bg-brand group-hover:text-white transition-colors">
         {serviceIcon}
@@ -56,6 +57,7 @@ export function ServiceCard({ id, title, description, icon }: ServiceCardProps) 
         {title}
       </h3>
       <p className="text-slate-600 text-sm leading-relaxed">{description}</p>
+      {/* <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">{description}</p> */}
     </Link>
   );
 }

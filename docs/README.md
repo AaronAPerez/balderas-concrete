@@ -122,6 +122,7 @@ src/
 ## Documentation
 
 - [Deployment Guide](./DEPLOYMENT.md)
+- [Contact Form Setup](./CONTACT-FORM.md)
 - [SEO Configuration](./SEO.md)
 - [Performance Guide](./PERFORMANCE.md)
 - [Brand Colors](./COLORS.md)

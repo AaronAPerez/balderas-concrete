@@ -40,7 +40,7 @@ export function GalleryPreview() {
                 placeholder="blur"
                 blurDataURL={getBlurDataUrl(image.src)}
               />
-              <div className="absolute inset-0 bg-brand-dark/0 group-hover:bg-brand-dark/20 transition-colors" />
+              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors" />
             </Link>
           ))}
         </div>

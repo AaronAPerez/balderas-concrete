@@ -10,11 +10,13 @@ export default function HomePage() {
   return (
     <>
       <HeroSection
-        title="Quality Concrete Services in Texas"
-        subtitle="From driveways to decorative stamped concrete, Balderas Concrete delivers exceptional craftsmanship and lasting results. Serving the greater Houston area for over 15 years."
+        title="Built to Last. 
+        Designed to Impress"
+        // title="Quality Concrete Services in Texas"
+        subtitle="From driveways to decorative stamped concrete, Balderas Concrete delivers premium quality concrete services with lasting results for residential and commercial projects."
       />
       <ServicesGrid />
-      <StatsSection />
+      {/* <StatsSection /> */}
       <ProcessSteps />
       <GalleryPreview />
       <ServiceAreas />

@@ -18,9 +18,10 @@ export function ServicesGrid({
 
   return (
     <section className="py-20 lg:py-28 bg-slate-50">
+    {/* <section className="py-20 lg:py-28 bg-slate-50 dark:bg-slate-900"> */}
       <Container>
         <SectionHeading title={title} subtitle={subtitle} />
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+        <div className="grid grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
           {displayServices.map((service) => (
             <ServiceCard
               key={service.id}

@@ -2,26 +2,83 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
-  --brand: #1E3A8A;
-  --brand-light: #3B82F6;
-  --brand-dark: #1E293B;
-  --accent: #F97316;
+  --foreground: #1f2937;
+
+  /* Primary brand color - Bold Orange from logo */
+  --brand: #F26522;
+  --brand-light: #F5833D;
+  --brand-dark: #D94E0F;
+
+  /* Secondary color - Concrete Gray from logo */
+  --concrete: #6B6B6B;
+  --concrete-light: #8C8C8C;
+  --concrete-dark: #4A4A4A;
+
+  /* Accent colors for UI elements */
+  --accent: #F26522;
+  --accent-hover: #D94E0F;
+
+  /* Black for text and dark elements */
+  --black: #000000;
+  --black-soft: #1a1a1a;
+}
+
+/* Dark mode - automatically follows system preference */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #121212;
+    --foreground: #e5e5e5;
+
+    /* Brand colors remain consistent for recognition */
+    --brand: #FF7A1A;
+    /* --brand: #F26522; */
+    --brand-light: #F5833D;
+    --brand-dark: #D94E0F;
+
+    /* Concrete gray - lighter in dark mode for visibility */
+    --concrete: #6C6C6C;
+    /* --concrete: #9CA3AF; */
+    --concrete-light: #D1D5DB;
+    --concrete-dark: #6B7280;
+
+    /* Accent colors */
+    --accent: #F26522;
+    --accent-hover: #F5833D;
+
+    /* Black variations for dark mode */
+    --black: #ffffff;
+    --black-soft: #f5f5f5;
+  }
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+
+  /* Brand orange palette */
   --color-brand: var(--brand);
   --color-brand-light: var(--brand-light);
   --color-brand-dark: var(--brand-dark);
+
+  /* Concrete gray palette */
+  --color-concrete: var(--concrete);
+  --color-concrete-light: var(--concrete-light);
+  --color-concrete-dark: var(--concrete-dark);
+
+  /* Accent colors */
   --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+
+  /* Black colors */
+  --color-black: var(--black);
+  --color-black-soft: var(--black-soft);
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
 body {
-  background: var(--background);
+  /* background: var(--background); */
   color: var(--foreground);
   font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
 }

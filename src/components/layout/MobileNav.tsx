@@ -40,14 +40,14 @@ export function MobileNav() {
       />
 
       {/* Slide-out panel */}
-      <div className="fixed inset-y-0 right-0 z-50 w-full max-w-sm bg-white shadow-xl md:hidden">
+      <div className="fixed inset-y-0 right-0 z-50 w-full max-w-sm bg-white/95 backdrop-blur-sm border border-slate-200 dark:bg-[#121212]/95 dark:border-slate-700 shadow-xl md:hidden">
         <div className="flex flex-col h-full">
           {/* Close button */}
           <div className="flex justify-end p-4">
             <button
               type="button"
               onClick={closeMobileNav}
-              className="inline-flex items-center justify-center w-11 h-11 rounded-md text-slate-700 hover:text-accent hover:bg-slate-100 transition-colors"
+              className="inline-flex items-center justify-center w-11 h-11 rounded-md text-slate-700 dark:text-slate-200 hover:text-accent hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
               aria-label="Close navigation menu"
             >
               <svg
@@ -76,7 +76,7 @@ export function MobileNav() {
                     className={`block px-4 py-3 rounded-md text-lg font-medium transition-colors ${
                       pathname === item.href
                         ? "bg-brand text-white"
-                        : "text-slate-700 hover:bg-slate-100"
+                        : "text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800"
                     }`}
                   >
                     {item.name}
@@ -93,10 +93,10 @@ export function MobileNav() {
           </nav>
 
           {/* Contact info at bottom */}
-          <div className="border-t border-slate-200 p-4 space-y-3">
+          <div className="border-t border-slate-200 dark:border-slate-700 p-4 space-y-3">
             <a
               href={`tel:${contactInfo.phoneRaw}`}
-              className="flex items-center gap-3 text-slate-700 hover:text-accent transition-colors py-2"
+              className="flex items-center gap-3 text-slate-700 dark:text-slate-200 hover:text-accent transition-colors py-2"
             >
               <svg
                 className="w-5 h-5"
@@ -115,7 +115,7 @@ export function MobileNav() {
             </a>
             <a
               href={`mailto:${contactInfo.email}`}
-              className="flex items-center gap-3 text-slate-700 hover:text-accent transition-colors py-2"
+              className="flex items-center gap-3 text-slate-700 dark:text-slate-200 hover:text-accent transition-colors py-2"
             >
               <svg
                 className="w-5 h-5"

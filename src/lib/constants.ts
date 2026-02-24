@@ -2,7 +2,8 @@
 
 export const siteConfig = {
   name: "Balderas Concrete",
-  tagline: "Quality Concrete Services in Texas",
+  tagline: "Built to Last. Designed to Impress.",
+  // tagline: "Quality Concrete Services in Texas",
   description:
     "Professional concrete contractor in Texas. Driveways, patios, foundations, sidewalks, and stamped concrete. Licensed & insured.",
   url: process.env.NEXT_PUBLIC_SITE_URL || "https://example.com",
