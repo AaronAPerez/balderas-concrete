@@ -77,6 +77,29 @@ export function HeroSection({
           </div>
         </div>
       </Container>
+      {/* <Container className="relative z-10 py-20 lg:py-28">
+        <div className="max-w-3xl">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white drop-shadow-md leading-tight">
+            {title}
+          </h1>
+          <p className="pt-6 text-lg sm:text-xl text-slate-100 leading-relaxed max-w-xl">
+            {subtitle}
+          </p>
+          <div className="mt-10 flex flex-col sm:flex-row gap-4">
+            <Button href={primaryCta.href} size="lg" className="bg-orange text-white hover:bg-orange/90">
+              {primaryCta.text}
+            </Button>
+            <Button
+              href={secondaryCta.href}
+              variant="outline"
+              size="lg"
+              className="border-white text-white hover:bg-white hover:text-orange"
+            >
+              {secondaryCta.text}
+            </Button>
+          </div>
+        </div>
+      </Container> */}
     </section>
   );
 }

@@ -12,10 +12,10 @@ export function Header() {
   const { toggleMobileNav, mobileNavOpen } = useUIStore();
 
   return (
-    <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border border-[#6B6B6B]">
+    <header className="sticky top-0 z-50 backdrop-blur-sm border border-[#8C8C8C]">
     {/* <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border border-slate-200 dark:bg-[#121212]/95  dark:border-slate-700"> */}
       {/* Top bar with contact info - hidden on mobile */}
-      <div className="hidden sm:block bg-orange-500 text-sm">
+      <div className="hidden sm:block bg-[#8C8C8C] text-sm">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-1 flex justify-between items-center text-slate-900 font-medium">
           <a
             href={`tel:${contactInfo.phoneRaw}`}
@@ -33,13 +33,14 @@ export function Header() {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2">
             <Image
-              src="/logo-header.png"
+              src="/images/logo/logo-crop-bg.png"
               alt="Balderas Concrete"
-              width={160}
+              width={130}
               height={40}
               className="drop-shadow-sm"
             />
-            {/* <span className="font-bold text-xl text-orange hidden sm:block drop-shadow-sm">
+
+            {/* <span className="font-bold text-xl text-[#1A2A3A] hidden sm:block drop-shadow-sm">
               BALDERAS
             </span>
             <span className="text-slate-500 text-sm font-medium ml-1 hidden sm:block">
@@ -53,8 +54,8 @@ export function Header() {
               <Link
                 key={item.name}
                 href={item.href}
-                className={`text-md font-medium transition-colors hover:text-orange-500 ${pathname === item.href ? "text-orange-500" : "text-slate-700"
-                // className={`text-md font-medium transition-colors hover:text-orange-500 ${pathname === item.href ? "text-orange-500" : "text-slate-700 dark:text-slate-300"
+                className={`text-md font-medium transition-colors hover:text-[#8C8C8C] ${pathname === item.href ? "text-[#8C8C8C]" : "text-slate-700"
+                // className={`text-md font-medium transition-colors hover:text-[#8C8C8C] ${pathname === item.href ? "text-[#8C8C8C]" : "text-slate-700 dark:text-slate-300"
                   }`}
               >
                 {item.name}
@@ -64,14 +65,14 @@ export function Header() {
 
           {/* CTA and mobile menu button */}
           <div className="flex items-center gap-4">
-            <Button href="/contact" size="sm" className="hidden sm:inline-flex bg-orange text-white hover:bg-orange/90">
+            <Button href="/contact" size="sm" className="hidden sm:inline-flex bg-[#1A2A3A] text-white hover:bg-[#1A2A3A]/90">
               Get a Quote
             </Button>
 
             <button
               type="button"
               onClick={toggleMobileNav}
-              className="md:hidden inline-flex items-center justify-center w-11 h-11 rounded-md text-slate-700 hover:text-shadow-orange-600 hover:bg-slate-100 transition-colors"
+              className="md:hidden inline-flex items-center justify-center w-11 h-11 rounded-md text-slate-700 hover:text-shadow-[#1A2A3A]-600 hover:bg-slate-100 transition-colors"
               aria-expanded={mobileNavOpen}
               aria-label="Toggle navigation menu"
             >

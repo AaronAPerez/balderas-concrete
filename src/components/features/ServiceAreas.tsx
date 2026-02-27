@@ -1,6 +1,6 @@
 import { Container } from "@/src/components/ui/Container";
 import { SectionHeading } from "@/src/components/ui/SectionHeading";
-import { serviceAreas } from "@/src/lib/constants";
+import { serviceAreas, serviceAreaRadius } from "@/src/lib/constants";
 
 export function ServiceAreas() {
   return (
@@ -9,7 +9,7 @@ export function ServiceAreas() {
       <Container>
         <SectionHeading
           title="Areas We Serve"
-          subtitle="Proudly serving the greater Houston area and surrounding communities."
+          subtitle={`We service anything within ${serviceAreaRadius}. Proudly serving the greater Houston area and surrounding communities.`}
         />
         <div className="flex flex-wrap justify-center gap-3 max-w-4xl mx-auto">
           {serviceAreas.map((area) => (

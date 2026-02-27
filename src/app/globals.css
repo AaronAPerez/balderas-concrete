@@ -5,7 +5,7 @@
   --foreground: #1f2937;
 
   /* Primary brand color - Bold Orange from logo */
-  --brand: #F26522;
+  --brand: #1A2A3A;
   --brand-light: #F5833D;
   --brand-dark: #D94E0F;
 
@@ -15,8 +15,11 @@
   --concrete-dark: #4A4A4A;
 
   /* Accent colors for UI elements */
-  --accent: #F26522;
-  --accent-hover: #D94E0F;
+  --accent: #1A2A3A;
+  --accent-hover: #F5F7FA;
+  /* --accent-hover: #D94E0F; */
+  /* --accent: #1A2A3A;
+  --accent-hover: #D94E0F; */
 
   /* Black for text and dark elements */
   --black: #000000;
@@ -30,10 +33,12 @@
     --foreground: #e5e5e5;
 
     /* Brand colors remain consistent for recognition */
-    --brand: #FF7A1A;
-    /* --brand: #F26522; */
+    --brand: #1A2A3A;
+    /* --brand: #1A2A3A; */
     --brand-light: #F5833D;
     --brand-dark: #D94E0F;
+    /* --brand-light: #F5833D;
+    --brand-dark: #D94E0F; */
 
     /* Concrete gray - lighter in dark mode for visibility */
     --concrete: #6C6C6C;
@@ -42,7 +47,7 @@
     --concrete-dark: #6B7280;
 
     /* Accent colors */
-    --accent: #F26522;
+    --accent: #1A2A3A;
     --accent-hover: #F5833D;
 
     /* Black variations for dark mode */

@@ -5,6 +5,7 @@ import {
   navigation,
   services,
   serviceAreas,
+  serviceAreaRadius,
 } from "@/src/lib/constants";
 import Image from "next/image";
 
@@ -41,7 +42,7 @@ export function Footer() {
 
           {/* Services links */}
           <div>
-            <h3 className="font-semibold text-lg pb-5 text-[#F26522]">Our Services</h3>
+            <h3 className="font-semibold text-lg pb-5 text-[#4B5CFF]">Our Services</h3>
             <ul className="space-y-3">
               {services.slice(0, 6).map((service) => (
                 <li key={service.id}>
@@ -58,7 +59,7 @@ export function Footer() {
 
           {/* Quick links */}
           <div>
-            <h3 className="font-semibold text-lg pb-5 text-[#F26522]">Quick Links</h3>
+            <h3 className="font-semibold text-lg pb-5 text-[#0F0F0F]">Quick Links</h3>
             <ul className="space-y-3">
               {navigation.main.map((item) => (
                 <li key={item.name}>
@@ -75,7 +76,7 @@ export function Footer() {
 
           {/* Contact info */}
           <div>
-            <h3 className="font-semibold text-lg pb-5 text-[#F26522]">Contact Us</h3>
+            <h3 className="font-semibold text-lg pb-5 text-[#D9D6D2]">Contact Us</h3>
             <ul className="space-y-4">
               <li>
                 <a
@@ -150,8 +151,11 @@ export function Footer() {
         {/* Service areas */}
         <div className="mt-14 pt-10 border-t border-slate-700">
           <h3 className="font-semibold text-lg pb-5 text-[#F26522]">Service Areas</h3>
+          <p className="text-slate-700 text-sm pb-2">
+            We service anything within {serviceAreaRadius}.
+          </p>
           <p className="text-slate-700 text-sm">
-            Proudly serving: {serviceAreas.join(" • ")}
+            Including: {serviceAreas.join(" • ")}
           </p>
         </div>
       </div>

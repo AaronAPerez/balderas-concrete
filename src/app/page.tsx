@@ -10,10 +10,9 @@ export default function HomePage() {
   return (
     <>
       <HeroSection
-        title="Built to Last. 
+        title="Built to Last.
         Designed to Impress"
-        // title="Quality Concrete Services in Texas"
-        subtitle="From driveways to decorative stamped concrete, Balderas Concrete delivers premium quality concrete services with lasting results for residential and commercial projects."
+        subtitle="Comprehensive earthwork, turnkey concrete, and underground utility services for commercial, industrial, and residential projects. Serving Houston and surrounding areas within 75 miles."
       />
       <ServicesGrid />
       {/* <StatsSection /> */}

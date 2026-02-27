@@ -3,9 +3,8 @@
 export const siteConfig = {
   name: "Balderas Concrete",
   tagline: "Built to Last. Designed to Impress.",
-  // tagline: "Quality Concrete Services in Texas",
   description:
-    "Professional concrete contractor in Texas. Driveways, patios, foundations, sidewalks, and stamped concrete. Licensed & insured.",
+    "Professional concrete and earthwork contractor serving Houston and surrounding areas. Specializing in turnkey concrete, earthwork & site work, and underground utilities for commercial, industrial, and residential projects. Licensed & insured.",
   url: process.env.NEXT_PUBLIC_SITE_URL || "https://example.com",
   ogImage: "/og-image.jpg",
 };
@@ -25,6 +24,9 @@ export const contactInfo = {
   hoursStructured: "Mo-Fr 07:00-18:00",
 };
 
+// Service area radius: approximately 75 miles from Houston
+export const serviceAreaRadius = "75 miles from Houston";
+
 export const serviceAreas = [
   "Houston",
   "Katy",
@@ -36,85 +38,64 @@ export const serviceAreas = [
   "Pasadena",
   "Baytown",
   "League City",
+  "Conroe",
+  "Galveston",
+  "Texas City",
+  "Friendswood",
+  "Missouri City",
 ];
 
 export const services = [
   {
-    id: "driveways",
-    title: "Concrete Driveways",
-    shortDescription: "Durable driveways built to last",
+    id: "earthwork",
+    title: "Earthwork & Site Work",
+    shortDescription: "Complete site preparation services",
     description:
-      "Professional driveway installation, replacement, and repair. We use high-quality concrete and proper reinforcement for driveways that withstand Texas weather and daily use.",
+      "Comprehensive earthwork and site preparation for commercial and industrial projects. From land clearing to final grading, we handle all aspects of site development to ensure your project starts on solid ground.",
     features: [
-      "New driveway installation",
-      "Driveway replacement",
-      "Crack repair and resurfacing",
-      "Expansion and extensions",
+      "Land Clearing & Grubbing",
+      "Demolition",
+      "Subgrade & Soil Stabilization",
+      "Building Pads",
+      "Detention & Retention Ponds",
+      "Surveying & Layout",
+      "Grading & Mass Grading",
+      "Excavating",
     ],
   },
   {
-    id: "patios",
-    title: "Patios & Outdoor Living",
-    shortDescription: "Beautiful outdoor spaces",
+    id: "turnkey-concrete",
+    title: "Turnkey Concrete",
+    shortDescription: "Full-service concrete solutions",
     description:
-      "Transform your backyard with a custom concrete patio. From simple slabs to decorative stamped designs, we create outdoor living spaces perfect for Texas entertaining.",
+      "Complete concrete services for residential, commercial, and industrial projects. From foundations to decorative finishes, we deliver turnkey solutions with expert craftsmanship and attention to detail.",
     features: [
-      "Custom patio design",
-      "Pool decks",
-      "Outdoor kitchens",
-      "Fire pit areas",
+      "Foundations",
+      "Slab On Grade",
+      "Post Tension Slabs",
+      "Elevated Slabs",
+      "Industrial Concrete",
+      "WWTP (Wastewater Treatment Plants)",
+      "Tilt-Up Panels",
+      "Retaining Walls",
+      "Concrete Pavement",
+      "Sidewalks",
+      "Decorative Concrete",
+      "Multi-Level Construction",
+      "Residential Concrete",
     ],
   },
   {
-    id: "foundations",
-    title: "Foundations",
-    shortDescription: "Solid foundations for your projects",
+    id: "underground-utilities",
+    title: "Underground Utilities",
+    shortDescription: "Expert utility infrastructure",
     description:
-      "Expert foundation work for residential and commercial projects. We ensure proper preparation, reinforcement, and curing for foundations that stand the test of time.",
+      "Professional underground utility installation for commercial and municipal projects. We specialize in sanitary, water, and storm systems with precision and compliance to all local codes and standards.",
     features: [
-      "Residential foundations",
-      "Commercial foundations",
-      "Garage slabs",
-      "Building pads",
-    ],
-  },
-  {
-    id: "sidewalks",
-    title: "Sidewalks & Walkways",
-    shortDescription: "Safe, attractive walkways",
-    description:
-      "Professional sidewalk and walkway installation. We create smooth, level surfaces with proper drainage for safe pedestrian access around your property.",
-    features: [
-      "Sidewalk installation",
-      "Garden pathways",
-      "Entry walkways",
-      "ADA-compliant surfaces",
-    ],
-  },
-  {
-    id: "stamped",
-    title: "Stamped & Decorative",
-    shortDescription: "Artistic concrete designs",
-    description:
-      "Elevate your concrete with decorative stamping and coloring. Choose from patterns that mimic stone, brick, tile, or wood for a custom look at a fraction of the cost.",
-    features: [
-      "Pattern stamping",
-      "Integral coloring",
-      "Exposed aggregate",
-      "Stained concrete",
-    ],
-  },
-  {
-    id: "repair",
-    title: "Concrete Repair",
-    shortDescription: "Restore and renew existing concrete",
-    description:
-      "Don't replace when you can repair. We fix cracks, spalling, and surface damage to extend the life of your existing concrete and restore its appearance.",
-    features: [
-      "Crack repair",
-      "Surface resurfacing",
-      "Leveling and lifting",
-      "Sealing and protection",
+      "Sanitary Sewer Systems",
+      "Waterline Installation",
+      "Storm Sewer Systems",
+      "Trench Drains",
     ],
   },
 ];
