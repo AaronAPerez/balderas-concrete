@@ -1,11 +1,19 @@
 // Site configuration - Update these values with actual business information
 
+// Helper function to ensure URL has protocol
+const ensureProtocol = (url: string): string => {
+  if (!url.startsWith('http://') && !url.startsWith('https://')) {
+    return `https://${url}`;
+  }
+  return url;
+};
+
 export const siteConfig = {
   name: "Balderas Concrete",
   tagline: "Built to Last. Designed to Impress.",
   description:
     "Professional concrete and earthwork contractor serving Houston and surrounding areas. 30+ years experience specializing in turnkey concrete, earthwork & site work, and underground utilities, tilt Wall, mid rise, WWTP, for commercial, industrial, and residential projects. Licensed & insured.",
-  url: process.env.NEXT_PUBLIC_SITE_URL || "https://example.com",
+  url: ensureProtocol(process.env.NEXT_PUBLIC_SITE_URL || "https://example.com"),
   ogImage: "/og-image.jpg",
 };
 
