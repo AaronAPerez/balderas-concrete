@@ -13,7 +13,7 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-50 backdrop-blur-sm border border-[#8C8C8C]">
-    {/* <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border border-slate-200 dark:bg-[#121212]/95  dark:border-slate-700"> */}
+      {/* <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border border-slate-200 dark:bg-[#121212]/95  dark:border-slate-700"> */}
       {/* Top bar with contact info - hidden on mobile */}
       <div className="hidden sm:block bg-[#6C6C6C] text-sm">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-1 flex justify-between items-center text-white font-medium">
@@ -28,24 +28,25 @@ export function Header() {
       </div>
 
       {/* Main navigation */}
-      <nav className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <nav className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 bg-white/95">
         <div className="flex h-15 items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2">
+          <Link href="/" className="flex items-center gap-1">
             <Image
-              src="/images/logo/logo-crop-bg.png"
+              src="/images/logo/logo.png"
               alt="Balderas Concrete"
-              width={130}
-              height={40}
+              width={56}
+              height={56}
               className="drop-shadow-sm"
             />
-
-            {/* <span className="font-bold text-xl text-[#1A2A3A] hidden sm:block drop-shadow-sm">
-              BALDERAS
-            </span>
-            <span className="text-slate-500 text-sm font-medium ml-1 hidden sm:block">
-              CONCRETE
-            </span> */}
+            <div className="flex flex-col">
+              <span className="font-bold text-xl text-[#1A2A3A] hidden sm:block drop-shadow-sm">
+                BALDERAS
+              </span>
+              <span className="text-[#6B7280] text-sm font-semibold -mt-1 hidden sm:block drop-shadow-sm">
+                CONCRETE
+              </span>
+            </div>
           </Link>
 
           {/* Desktop navigation */}
@@ -55,7 +56,7 @@ export function Header() {
                 key={item.name}
                 href={item.href}
                 className={`text-md font-medium transition-colors hover:text-[#8C8C8C] ${pathname === item.href ? "text-[#1A2A3A]" : "text-slate-700"
-                // className={`text-md font-medium transition-colors hover:text-[#8C8C8C] ${pathname === item.href ? "text-[#8C8C8C]" : "text-slate-700 dark:text-slate-300"
+                  // className={`text-md font-medium transition-colors hover:text-[#8C8C8C] ${pathname === item.href ? "text-[#8C8C8C]" : "text-slate-700 dark:text-slate-300"
                   }`}
               >
                 {item.name}

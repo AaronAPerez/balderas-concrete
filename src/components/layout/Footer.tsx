@@ -20,20 +20,25 @@ export function Footer() {
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-12 ">
           {/* Company info */}
           <div>
+ {/* Logo */}
+          <Link href="/" className="flex items-center gap-1">
             <Image
-              src="/logo-header.png"
+              src="/images/logo/logo.png"
               alt="Balderas Concrete"
-              width={160}
-              height={40}
+              width={56}
+              height={56}
               className="drop-shadow-sm"
             />
-            <div className="flex items-center gap-2 pb-4">
-              {/* <div className="w-10 h-10 bg-accent rounded-md flex items-center justify-center">
-                <span className="text-white font-bold text-lg">BC</span>
-              </div>
-              <span className="font-bold text-xl">{siteConfig.name}</span> */}
+            <div className="flex flex-col">
+              <span className="font-bold text-xl text-[#1A2A3A] hidden sm:block drop-shadow-sm">
+                BALDERAS
+              </span>
+              <span className="text-[#6B7280] text-sm font-semibold -mt-1 hidden sm:block drop-shadow-sm">
+                CONCRETE
+              </span>
             </div>
-            <p className="text-slate-600 text-sm leading-relaxed pb-5">
+          </Link>
+            <p className="text-slate-600 text-sm leading-relaxed pt-4 pb-5">
               {siteConfig.tagline} Serving the greater Houston area with
               quality concrete work for over 15 years.
             </p>
@@ -42,7 +47,7 @@ export function Footer() {
 
           {/* Services links */}
           <div>
-            <h3 className="font-semibold text-lg pb-5 text-[#4B5CFF]">Our Services</h3>
+            <h3 className="font-semibold text-lg pb-5 text-[#0F0F0F]">Our Services</h3>
             <ul className="space-y-3">
               {services.slice(0, 6).map((service) => (
                 <li key={service.id}>
@@ -76,7 +81,7 @@ export function Footer() {
 
           {/* Contact info */}
           <div>
-            <h3 className="font-semibold text-lg pb-5 text-[#D9D6D2]">Contact Us</h3>
+            <h3 className="font-semibold text-lg pb-5 text-[#0F0F0F]">Contact Us</h3>
             <ul className="space-y-4">
               <li>
                 <a
@@ -150,7 +155,7 @@ export function Footer() {
 
         {/* Service areas */}
         <div className="mt-14 pt-10 border-t border-slate-700">
-          <h3 className="font-semibold text-lg pb-5 text-[#F26522]">Service Areas</h3>
+          <h3 className="font-semibold text-lg pb-5 text-[#0F0F0F]">Service Areas</h3>
           <p className="text-slate-700 text-sm pb-2">
             We service anything within {serviceAreaRadius}.
           </p>
