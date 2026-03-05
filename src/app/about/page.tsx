@@ -42,7 +42,7 @@ export default function AboutPage() {
                   as if it were our own home.
                 </p>
                 <p>
-                  For over 15 years, we&apos;ve been serving the greater Houston area,
+                  For over 30 years, we&apos;ve been serving the greater Houston area,
                   building lasting relationships with our customers through honest
                   communication, quality craftsmanship, and reliable service.
                 </p>
