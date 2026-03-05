@@ -4,7 +4,7 @@ export const siteConfig = {
   name: "Balderas Concrete",
   tagline: "Built to Last. Designed to Impress.",
   description:
-    "Professional concrete and earthwork contractor serving Houston and surrounding areas. Specializing in turnkey concrete, earthwork & site work, and underground utilities for commercial, industrial, and residential projects. Licensed & insured.",
+    "Professional concrete and earthwork contractor serving Houston and surrounding areas. 30+ years experience specializing in turnkey concrete, earthwork & site work, and underground utilities, tilt Wall, mid rise, WWTP, for commercial, industrial, and residential projects. Licensed & insured.",
   url: process.env.NEXT_PUBLIC_SITE_URL || "https://example.com",
   ogImage: "/og-image.jpg",
 };
@@ -112,7 +112,7 @@ export const navigation = {
 };
 
 export const stats = [
-  { value: "15+", label: "Years Experience" },
+  { value: "30+", label: "Years Experience" },
   { value: "500+", label: "Projects Completed" },
   { value: "100%", label: "Satisfaction Rate" },
   { value: "10+", label: "Cities Served" },

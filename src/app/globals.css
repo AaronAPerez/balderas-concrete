@@ -4,22 +4,19 @@
   --background: #ffffff;
   --foreground: #1f2937;
 
-  /* Primary brand color - Bold Orange from logo */
-  --brand: #1A2A3A;
-  --brand-light: #F5833D;
-  --brand-dark: #D94E0F;
+  /* Primary brand color - Navy Blue from logo */
+  --brand: #2C4557;
+  --brand-light: #3D5A6F;
+  --brand-dark: #1A2A3A;
 
   /* Secondary color - Concrete Gray from logo */
-  --concrete: #6B6B6B;
-  --concrete-light: #8C8C8C;
-  --concrete-dark: #4A4A4A;
+  --concrete: #6B7280;
+  --concrete-light: #9CA3AF;
+  --concrete-dark: #4B5563;
 
   /* Accent colors for UI elements */
-  --accent: #1A2A3A;
-  --accent-hover: #F5F7FA;
-  /* --accent-hover: #D94E0F; */
-  /* --accent: #1A2A3A;
-  --accent-hover: #D94E0F; */
+  --accent: #2C4557;
+  --accent-hover: #3D5A6F;
 
   /* Black for text and dark elements */
   --black: #000000;
@@ -32,23 +29,19 @@
     --background: #121212;
     --foreground: #e5e5e5;
 
-    /* Brand colors remain consistent for recognition */
-    --brand: #1A2A3A;
-    /* --brand: #1A2A3A; */
-    --brand-light: #F5833D;
-    --brand-dark: #D94E0F;
-    /* --brand-light: #F5833D;
-    --brand-dark: #D94E0F; */
+    /* Brand colors - lighter blue in dark mode for visibility */
+    --brand: #3D5A6F;
+    --brand-light: #5A7A94;
+    --brand-dark: #2C4557;
 
     /* Concrete gray - lighter in dark mode for visibility */
-    --concrete: #6C6C6C;
-    /* --concrete: #9CA3AF; */
+    --concrete: #9CA3AF;
     --concrete-light: #D1D5DB;
     --concrete-dark: #6B7280;
 
     /* Accent colors */
-    --accent: #1A2A3A;
-    --accent-hover: #F5833D;
+    --accent: #3D5A6F;
+    --accent-hover: #5A7A94;
 
     /* Black variations for dark mode */
     --black: #ffffff;

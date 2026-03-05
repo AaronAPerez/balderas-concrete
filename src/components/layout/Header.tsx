@@ -15,8 +15,8 @@ export function Header() {
     <header className="sticky top-0 z-50 backdrop-blur-sm border border-[#8C8C8C]">
     {/* <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border border-slate-200 dark:bg-[#121212]/95  dark:border-slate-700"> */}
       {/* Top bar with contact info - hidden on mobile */}
-      <div className="hidden sm:block bg-[#8C8C8C] text-sm">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-1 flex justify-between items-center text-slate-900 font-medium">
+      <div className="hidden sm:block bg-[#6C6C6C] text-sm">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-1 flex justify-between items-center text-white font-medium">
           <a
             href={`tel:${contactInfo.phoneRaw}`}
             className="hover:text-white/80 transition-colors"
@@ -54,7 +54,7 @@ export function Header() {
               <Link
                 key={item.name}
                 href={item.href}
-                className={`text-md font-medium transition-colors hover:text-[#8C8C8C] ${pathname === item.href ? "text-[#8C8C8C]" : "text-slate-700"
+                className={`text-md font-medium transition-colors hover:text-[#8C8C8C] ${pathname === item.href ? "text-[#1A2A3A]" : "text-slate-700"
                 // className={`text-md font-medium transition-colors hover:text-[#8C8C8C] ${pathname === item.href ? "text-[#8C8C8C]" : "text-slate-700 dark:text-slate-300"
                   }`}
               >

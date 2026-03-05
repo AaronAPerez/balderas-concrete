@@ -14,28 +14,28 @@ const config: Config = {
         background: "var(--background)",
         foreground: "var(--foreground)",
 
-        /* Primary brand color - Bold Orange from logo */
+        /* Primary brand color - Navy Blue from logo */
         brand: {
-          DEFAULT: "#F26522",
-          light: "#F5833D",
-          dark: "#D94E0F",
+          DEFAULT: "#2C4557", // Main dark blue from logo
+          light: "#3D5A6F",   // Lighter blue variation
+          dark: "#1A2A3A",    // Darker blue variation
         },
-        /* Orange alias for convenience - same as brand */
-        orange: {
-          DEFAULT: "#F26522",
-          light: "#F5833D",
-          dark: "#D94E0F",
+        /* Blue alias for convenience - same as brand */
+        blue: {
+          DEFAULT: "#2C4557",
+          light: "#3D5A6F",
+          dark: "#1A2A3A",
         },
         /* Secondary color - Concrete Gray from logo */
         concrete: {
-          DEFAULT: "#6B6B6B",
-          light: "#8C8C8C",
-          dark: "#4A4A4A",
+          DEFAULT: "#6B7280", // Medium gray from logo
+          light: "#9CA3AF",   // Light gray
+          dark: "#4B5563",    // Dark gray
         },
         /* Accent colors for UI elements */
         accent: {
-          DEFAULT: "#F26522",
-          hover: "#D94E0F",
+          DEFAULT: "#2C4557",
+          hover: "#3D5A6F",
         },
         /* Black for text and dark elements */
         black: {
