@@ -44,28 +44,62 @@ export function HeroSection({
           placeholder="blur"
           blurDataURL={getBlurDataUrl(backgroundImage)}
         />
-        <div className="absolute inset-0 bg-linear-to-r from-brand-dark/90 via-brand-dark/70 to-brand-dark/50" />
+        {/* Dark overlay for text readability */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background: 'linear-gradient(to right, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.70) 50%, rgba(0,0,0,0.50) 100%)'
+          }}
+        />
       </div>
 
       {/* Content */}
       <Container className="relative z-10 py-20 lg:py-28">
         <div className="max-w-3xl">
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white drop-shadow-md leading-tight">
             {title}
           </h1>
-          <p className="pt-6 text-lg sm:text-xl text-slate-200 leading-relaxed max-w-xl">
+          <p className="pt-6 text-lg sm:text-xl text-slate-100 leading-relaxed max-w-xl">
             {subtitle}
           </p>
           <div className="mt-10 flex flex-col sm:flex-row gap-4">
-            <Button href={primaryCta.href} size="lg">
+            <Button href={primaryCta.href} size="lg" className="bg-orange text-white hover:bg-orange/90">
               {primaryCta.text}
             </Button>
-            <Button href={secondaryCta.href} variant="outline" size="lg" className="border-white text-white hover:bg-white hover:text-brand-dark">
+            <Button
+              href={secondaryCta.href}
+              variant="outline"
+              size="lg"
+              className="border-white text-white hover:bg-white hover:text-orange"
+            >
               {secondaryCta.text}
             </Button>
           </div>
         </div>
       </Container>
+      {/* <Container className="relative z-10 py-20 lg:py-28">
+        <div className="max-w-3xl">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white drop-shadow-md leading-tight">
+            {title}
+          </h1>
+          <p className="pt-6 text-lg sm:text-xl text-slate-100 leading-relaxed max-w-xl">
+            {subtitle}
+          </p>
+          <div className="mt-10 flex flex-col sm:flex-row gap-4">
+            <Button href={primaryCta.href} size="lg" className="bg-orange text-white hover:bg-orange/90">
+              {primaryCta.text}
+            </Button>
+            <Button
+              href={secondaryCta.href}
+              variant="outline"
+              size="lg"
+              className="border-white text-white hover:bg-white hover:text-orange"
+            >
+              {secondaryCta.text}
+            </Button>
+          </div>
+        </div>
+      </Container> */}
     </section>
   );
 }

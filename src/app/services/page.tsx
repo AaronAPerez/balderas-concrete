@@ -7,31 +7,30 @@ import { services, siteConfig } from "@/src/lib/constants";
 
 export const metadata: Metadata = {
   title: "Our Services",
-  description: `Professional concrete services in Texas including driveways, patios, foundations, sidewalks, stamped concrete, and repairs. ${siteConfig.name} - quality workmanship guaranteed.`,
+  description: `Professional concrete, earthwork, and utility services in Houston and surrounding areas. Turnkey concrete, site work, and underground utilities for commercial, industrial, and residential projects. ${siteConfig.name} - quality workmanship guaranteed.`,
 };
 
+// Image mappings for each service category
 const serviceImages: Record<string, string> = {
-  driveways: "/images/concrete/1000035716.jpg",
-  patios: "/images/concrete/1000035719.jpg",
-  foundations: "/images/concrete/1000037663.jpg",
-  sidewalks: "/images/concrete/1000035716.jpg",
-  stamped: "/images/concrete/1000035719.jpg",
-  repair: "/images/concrete/1000037663.jpg",
+  earthwork: "/images/concrete/1000037663.jpg",
+  "turnkey-concrete": "/images/concrete/1000035716.jpg",
+  "underground-utilities": "/images/concrete/1000035719.jpg",
 };
 
 export default function ServicesPage() {
   return (
     <>
       {/* Hero Section */}
-      <section className="relative py-16 lg:py-24 bg-brand">
+      <section className="relative py-8 lg:py-16 bg-brand">
         <Container>
           <div className="text-center max-w-3xl mx-auto">
             <h1 className="text-4xl sm:text-5xl font-bold text-white pb-6">
-              Our Concrete Services
+              Our Services
             </h1>
-            <p className="text-xl text-brand-light">
-              From driveways to decorative finishes, we deliver exceptional
-              concrete work for residential and commercial projects.
+            <p className="text-xl text-white/90 leading-relaxed">
+              Comprehensive earthwork, turnkey concrete, and underground utility
+              services for commercial, industrial, and residential projects
+              within 75 miles of Houston.
             </p>
           </div>
         </Container>
@@ -102,28 +101,29 @@ export default function ServicesPage() {
         <Container>
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-3xl font-bold text-brand pb-6">
-              Quality Materials & Expert Craftsmanship
+              Professional Standards & Expert Execution
             </h2>
             <p className="text-slate-600 leading-relaxed mb-8">
-              We use only premium concrete mixes designed for the Texas climate.
-              Our team follows industry best practices for preparation,
-              reinforcement, and curing to ensure your concrete lasts for decades.
+              We bring industry-leading expertise to every project, from site
+              preparation to final completion. Our team follows strict quality
+              standards and safety protocols to deliver results that exceed
+              expectations.
             </p>
             <div className="grid sm:grid-cols-3 gap-6">
               {[
-                "Premium 4000+ PSI Concrete",
-                "Steel Reinforcement",
-                "Proper Drainage Design",
-                "Expansion Joint Planning",
-                "Professional Finishing",
-                "Quality Sealers",
+                "Licensed & Insured",
+                "Precision Surveying",
+                "Code Compliance",
+                "Safety First Approach",
+                "Quality Materials",
+                "Project Management",
               ].map((item, index) => (
                 <div
                   key={index}
                   className="flex items-center gap-2 justify-center text-slate-700"
                 >
                   <svg
-                    className="w-5 h-5 text-acc"
+                    className="w-5 h-5 text-accent"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"

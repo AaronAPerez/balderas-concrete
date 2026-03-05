@@ -5,40 +5,50 @@ import {
   navigation,
   services,
   serviceAreas,
+  serviceAreaRadius,
 } from "@/src/lib/constants";
+import Image from "next/image";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-brand-dark text-white">
+    <footer className="bg-[#6B6B6B]/10 backdrop-blur-sm border border-slate-200">
+    {/* <footer className="bg-white/95 backdrop-blur-sm border border-slate-200 dark:bg-[#121212]/95  dark:border-slate-700"> */}
       {/* Main footer content */}
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-14 lg:py-20">
-        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-12">
+        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-12 ">
           {/* Company info */}
           <div>
-            <div className="flex items-center gap-2 pb-5">
-              <div className="w-10 h-10 bg-accent rounded-md flex items-center justify-center">
+            <Image
+              src="/logo-header.png"
+              alt="Balderas Concrete"
+              width={160}
+              height={40}
+              className="drop-shadow-sm"
+            />
+            <div className="flex items-center gap-2 pb-4">
+              {/* <div className="w-10 h-10 bg-accent rounded-md flex items-center justify-center">
                 <span className="text-white font-bold text-lg">BC</span>
               </div>
-              <span className="font-bold text-xl">{siteConfig.name}</span>
+              <span className="font-bold text-xl">{siteConfig.name}</span> */}
             </div>
-            <p className="text-slate-300 text-sm leading-relaxed pb-5">
-              {siteConfig.tagline}. Serving the greater Houston area with
+            <p className="text-slate-600 text-sm leading-relaxed pb-5">
+              {siteConfig.tagline} Serving the greater Houston area with
               quality concrete work for over 15 years.
             </p>
-            <p className="text-slate-300 text-sm">{contactInfo.hours}</p>
+            <p className="text-slate-600 text-sm">{contactInfo.hours}</p>
           </div>
 
           {/* Services links */}
           <div>
-            <h3 className="font-semibold text-lg pb-5">Our Services</h3>
+            <h3 className="font-semibold text-lg pb-5 text-[#4B5CFF]">Our Services</h3>
             <ul className="space-y-3">
               {services.slice(0, 6).map((service) => (
                 <li key={service.id}>
                   <Link
                     href={`/services#${service.id}`}
-                    className="text-slate-300 hover:text-accent transition-colors text-sm"
+                    className="text-slate-600 hover:text-accent transition-colors text-sm"
                   >
                     {service.title}
                   </Link>
@@ -49,13 +59,13 @@ export function Footer() {
 
           {/* Quick links */}
           <div>
-            <h3 className="font-semibold text-lg pb-5">Quick Links</h3>
+            <h3 className="font-semibold text-lg pb-5 text-[#0F0F0F]">Quick Links</h3>
             <ul className="space-y-3">
               {navigation.main.map((item) => (
                 <li key={item.name}>
                   <Link
                     href={item.href}
-                    className="text-slate-300 hover:text-accent transition-colors text-sm"
+                    className="text-slate-600 hover:text-accent transition-colors text-sm"
                   >
                     {item.name}
                   </Link>
@@ -66,12 +76,12 @@ export function Footer() {
 
           {/* Contact info */}
           <div>
-            <h3 className="font-semibold text-lg pb-5">Contact Us</h3>
+            <h3 className="font-semibold text-lg pb-5 text-[#D9D6D2]">Contact Us</h3>
             <ul className="space-y-4">
               <li>
                 <a
                   href={`tel:${contactInfo.phoneRaw}`}
-                  className="flex items-start gap-3 text-slate-300 hover:text-accent transition-colors text-sm"
+                  className="flex items-start gap-3 text-slate-600 hover:text-accent transition-colors text-sm"
                 >
                   <svg
                     className="w-5 h-5 mt-0.5 shrink-0"
@@ -92,7 +102,7 @@ export function Footer() {
               <li>
                 <a
                   href={`mailto:${contactInfo.email}`}
-                  className="flex items-start gap-3 text-slate-300 hover:text-accent transition-colors text-sm"
+                  className="flex items-start gap-3 text-slate-600 hover:text-accent transition-colors text-sm"
                 >
                   <svg
                     className="w-5 h-5 mt-0.5 shrink-0"
@@ -111,7 +121,7 @@ export function Footer() {
                 </a>
               </li>
               <li>
-                <div className="flex items-start gap-3 text-slate-300 text-sm">
+                <div className="flex items-start gap-3 text-slate-600 text-sm">
                   <svg
                     className="w-5 h-5 mt-0.5 shrink-0"
                     fill="none"
@@ -140,9 +150,12 @@ export function Footer() {
 
         {/* Service areas */}
         <div className="mt-14 pt-10 border-t border-slate-700">
-          <h3 className="font-semibold text-lg pb-5">Service Areas</h3>
-          <p className="text-slate-300 text-sm">
-            Proudly serving: {serviceAreas.join(" • ")}
+          <h3 className="font-semibold text-lg pb-5 text-[#F26522]">Service Areas</h3>
+          <p className="text-slate-700 text-sm pb-2">
+            We service anything within {serviceAreaRadius}.
+          </p>
+          <p className="text-slate-700 text-sm">
+            Including: {serviceAreas.join(" • ")}
           </p>
         </div>
       </div>
@@ -150,7 +163,7 @@ export function Footer() {
       {/* Bottom bar */}
       <div className="border-t border-slate-700">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-5">
-          <div className="flex flex-col sm:flex-row justify-between items-center gap-4 text-sm text-slate-400">
+          <div className="flex flex-col sm:flex-row justify-between items-center gap-4 text-sm text-slate-700">
             <p>
               &copy; {currentYear} {siteConfig.name}. All rights reserved.
             </p>

@@ -14,7 +14,8 @@ export function CTABanner({
   showPhone = true,
 }: CTABannerProps) {
   return (
-    <section className="py-20 lg:py-24 bg-brand-dark">
+    <section className="py-20 lg:py-24 bg-concrete-dark">
+    {/* <section className="py-20 lg:py-24 bg-concrete-dark dark:bg-black-soft"> */}
       <Container>
         <div className="text-center max-w-3xl mx-auto">
           <h2 className="text-3xl sm:text-4xl font-bold text-white">
