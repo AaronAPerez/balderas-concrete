@@ -1,13 +1,10 @@
-import type { Metadata } from "next";
+"use client";
+
 import { Container } from "@/src/components/ui/Container";
 import { GalleryGrid } from "@/src/components/features/GalleryGrid";
 import { CTABanner } from "@/src/components/features/CTABanner";
-import { siteConfig } from "@/src/lib/constants";
-
-export const metadata: Metadata = {
-  title: "Project Gallery",
-  description: `Browse our portfolio of completed concrete projects. ${siteConfig.name} - driveways, patios, foundations, and more in the greater Houston area.`,
-};
+import { motion, useReducedMotion } from "framer-motion";
+import { smoothEasing, FadeInSection } from "@/src/components/ui/animations";
 
 const galleryImages = [
   { src: "/images/concrete/1000035716.jpg", alt: "Concrete driveway installation" },
@@ -15,37 +12,94 @@ const galleryImages = [
   { src: "/images/concrete/1000037663.jpg", alt: "Stamped concrete work" },
 ];
 
+/**
+ * GalleryPage - Project portfolio with premium animations
+ * Features:
+ * - Animated hero section
+ * - Staggered image grid with hover effects
+ * - Animated lightbox
+ */
 export default function GalleryPage() {
+  const shouldReduceMotion = useReducedMotion();
+
+  // Hero container animation
+  const heroContainerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: shouldReduceMotion ? 0 : 0.15,
+        delayChildren: shouldReduceMotion ? 0 : 0.1,
+      },
+    },
+  };
+
+  // Hero text animation
+  const heroTextVariants = {
+    hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: shouldReduceMotion ? 0.1 : 0.6,
+        ease: smoothEasing,
+      },
+    },
+  };
+
   return (
     <>
-      {/* Hero Section */}
-      <section className="relative py-8 lg:py-16 bg-brand">
+      {/* Animated Hero Section */}
+      <section className="relative py-8 lg:py-16 bg-brand overflow-hidden">
         <Container>
-          <div className="text-center max-w-3xl mx-auto">
-            <h1 className="text-4xl sm:text-5xl font-bold text-white pb-6">
+          <motion.div
+            className="text-center max-w-3xl mx-auto"
+            variants={heroContainerVariants}
+            initial="hidden"
+            animate="visible"
+          >
+            <motion.h1
+              className="text-4xl sm:text-5xl font-bold text-white pb-6"
+              variants={heroTextVariants}
+            >
               Our Work
-            </h1>
-           <p className="text-xl text-white/90 leading-relaxed">
+            </motion.h1>
+            <motion.p
+              className="text-xl text-white/90 leading-relaxed"
+              variants={heroTextVariants}
+            >
               Browse our portfolio of completed concrete projects throughout the
               greater Houston area.
-            </p>
-          </div>
+            </motion.p>
+          </motion.div>
         </Container>
       </section>
 
-      {/* Gallery */}
+      {/* Gallery Grid - animations handled by the component */}
       <GalleryGrid
         images={galleryImages}
         showHeading={false}
         columns={3}
       />
 
-      {/* More Projects Coming */}
+      {/* More Projects Coming - Animated */}
       <section className="py-12 bg-slate-50">
         <Container>
-          <p className="text-center text-slate-600">
-            More project photos coming soon! Contact us to see additional examples of our work.
-          </p>
+          <FadeInSection direction="up">
+            <motion.p
+              className="text-center text-slate-600"
+              whileHover={
+                shouldReduceMotion
+                  ? {}
+                  : {
+                      scale: 1.02,
+                      transition: { duration: 0.2 },
+                    }
+              }
+            >
+              More project photos coming soon! Contact us to see additional examples of our work.
+            </motion.p>
+          </FadeInSection>
         </Container>
       </section>
 

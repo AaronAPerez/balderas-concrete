@@ -13,20 +13,20 @@ export const siteConfig = {
   tagline: "Built to Last. Designed to Impress.",
   description:
     "Professional concrete and earthwork contractor serving Houston and surrounding areas. 30+ years experience specializing in turnkey concrete, earthwork & site work, and underground utilities, tilt Wall, mid rise, WWTP, for commercial, industrial, and residential projects. Licensed & insured.",
-  url: ensureProtocol(process.env.NEXT_PUBLIC_SITE_URL || "https://example.com"),
-  ogImage: "/og-image.jpg",
+  url: ensureProtocol(process.env.NEXT_PUBLIC_SITE_URL || "https://balderasconcrete.com"),
+  ogImage: "/images/og-image.png",
 };
 
 export const contactInfo = {
-  phone: "(555) 123-4567", // Update with actual phone
-  phoneRaw: "+15551234567", // For tel: links
+  phone: "(281) 720-9070", // Update with actual phone
+  phoneRaw: "+12817209070", // For tel: links
   email: "contact@balderasconcrete.com", // Update with actual email
   address: {
-    street: "123 Main Street", // Update with actual address
+    street: "", // Update with actual address
     city: "Houston",
     state: "TX",
     zip: "77001",
-    full: "123 Main Street, Houston, TX 77001",
+    full: "Houston, TX 77001",
   },
   hours: "Monday - Friday: 7:00 AM - 6:00 PM",
   hoursStructured: "Mo-Fr 07:00-18:00",
@@ -119,12 +119,12 @@ export const navigation = {
   services: services.map((s) => ({ name: s.title, href: `/services#${s.id}` })),
 };
 
-export const stats = [
-  { value: "30+", label: "Years Experience" },
-  { value: "500+", label: "Projects Completed" },
-  { value: "100%", label: "Satisfaction Rate" },
-  { value: "10+", label: "Cities Served" },
-];
+// export const stats = [
+//   { value: "30+", label: "Years Experience" },
+//   { value: "500+", label: "Projects Completed" },
+//   { value: "100%", label: "Satisfaction Rate" },
+//   { value: "10+", label: "Cities Served" },
+// ];
 
 export const processSteps = [
   {
