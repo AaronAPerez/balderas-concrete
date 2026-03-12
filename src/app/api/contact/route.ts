@@ -28,9 +28,9 @@ export async function POST(req: Request) {
     await prisma.contactSubmission.create({ data });
 
     // Notify company
+    // EMAIL_FROM env var: use "onboarding@resend.dev" for dev, "no-reply@mail.balderasconcrete.com" for production
     await resend.emails.send({
-      from: "Balderas Concrete <no-reply@test.aaronaperez.dev>",
-      // from: "Balderas Concrete <no-reply@balderasconcrete.com>",
+      from: `Balderas Concrete <${process.env.EMAIL_FROM}>`,
       to: process.env.CONTACT_NOTIFICATION_EMAIL!,
       subject: `New contact from ${data.name}`,
       text: `
@@ -46,10 +46,9 @@ ${data.message}
       `,
     });
 
-    // Auto-reply to client
+    // Auto-reply to customer confirming we received their message
     await resend.emails.send({
-      from: "Balderas Concrete <no-reply@test.aaronaperez.dev>",
-      // from: "Balderas Concrete <no-reply@balderasconcrete.com>",
+      from: `Balderas Concrete <${process.env.EMAIL_FROM}>`,
       to: data.email,
       subject: "We received your request – Balderas Concrete",
       text: `
