@@ -75,11 +75,29 @@ function checkEmailConfig(): ServiceStatus {
 /**
  * GET /api/health
  * Returns health status of all services
+ *
+ * Query params:
+ * - ?deep=true - Performs full service checks (database, email)
+ * - Default (no param) - Simple API availability check for UptimeRobot
  */
-export async function GET() {
+export async function GET(request: Request) {
+  const { searchParams } = new URL(request.url);
+  const isDeepCheck = searchParams.get("deep") === "true";
   const timestamp = new Date().toISOString();
 
-  // Check all services
+  // Simple health check for UptimeRobot - just verify API is responding
+  if (!isDeepCheck) {
+    return NextResponse.json({
+      status: "healthy",
+      timestamp,
+      services: {
+        api: { status: "up" },
+      },
+      version: process.env.npm_package_version || "1.0.0",
+    });
+  }
+
+  // Deep health check - test all services
   const [databaseStatus] = await Promise.all([
     checkDatabase(),
   ]);
