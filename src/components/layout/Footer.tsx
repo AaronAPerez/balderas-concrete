@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import {
   siteConfig,
@@ -7,6 +9,7 @@ import {
   serviceAreas,
   serviceAreaRadius,
 } from "@/src/lib/constants";
+import { trackPhoneClick, trackEmailClick } from "@/src/components/analytics/GoogleAnalytics";
 import Image from "next/image";
 
 export function Footer() {
@@ -87,6 +90,7 @@ export function Footer() {
                 <a
                   href={`tel:${contactInfo.phoneRaw}`}
                   className="flex items-start gap-3 text-slate-600 hover:text-accent transition-colors text-sm"
+                  onClick={() => trackPhoneClick("footer")}
                 >
                   <svg
                     className="w-5 h-5 mt-0.5 shrink-0"
@@ -108,6 +112,7 @@ export function Footer() {
                 <a
                   href={`mailto:${contactInfo.email}`}
                   className="flex items-start gap-3 text-slate-600 hover:text-accent transition-colors text-sm"
+                  onClick={() => trackEmailClick("footer")}
                 >
                   <svg
                     className="w-5 h-5 mt-0.5 shrink-0"

@@ -3,6 +3,7 @@
 import { Button } from "@/src/components/ui/Button";
 import { Container } from "@/src/components/ui/Container";
 import { contactInfo } from "@/src/lib/constants";
+import { trackPhoneClick, trackCTAClick } from "@/src/components/analytics/GoogleAnalytics";
 import { motion, useReducedMotion } from "framer-motion";
 import { smoothEasing } from "@/src/components/ui/animations";
 
@@ -100,7 +101,11 @@ export function CTABanner({
               whileHover={shouldReduceMotion ? {} : { scale: 1.02 }}
               whileTap={shouldReduceMotion ? {} : { scale: 0.98 }}
             >
-              <Button href="/contact" size="lg">
+              <Button
+                href="/contact"
+                size="lg"
+                onClick={() => trackCTAClick("Get an Estimate", "cta-banner")}
+              >
                 Get an Estimate
               </Button>
             </motion.div>
@@ -109,6 +114,7 @@ export function CTABanner({
               <motion.a
                 href={`tel:${contactInfo.phoneRaw}`}
                 className="inline-flex items-center gap-2 text-white hover:text-accent transition-colors text-lg font-medium min-h-11"
+                onClick={() => trackPhoneClick("cta-banner")}
                 whileHover={
                   shouldReduceMotion
                     ? {}

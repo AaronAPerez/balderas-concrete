@@ -9,6 +9,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   size?: ButtonSize;
   href?: string;
   children: React.ReactNode;
+  onClick?: () => void;
 }
 
 const variantStyles: Record<ButtonVariant, string> = {
@@ -35,6 +36,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       children,
       className = "",
       disabled,
+      onClick,
       ...props
     },
     ref
@@ -44,9 +46,10 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
     const combinedStyles = `${baseStyles} ${variantStyles[variant]} ${sizeStyles[size]} ${className}`;
 
+    // When href is provided, render as Link but still support onClick for tracking
     if (href && !disabled) {
       return (
-        <Link href={href} className={combinedStyles}>
+        <Link href={href} className={combinedStyles} onClick={onClick}>
           {children}
         </Link>
       );
@@ -57,6 +60,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         ref={ref}
         className={combinedStyles}
         disabled={disabled}
+        onClick={onClick}
         {...props}
       >
         {children}

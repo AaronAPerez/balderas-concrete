@@ -13,7 +13,7 @@ export const siteConfig = {
   tagline: "Built to Last. Designed to Impress.",
   description:
     "Professional concrete and earthwork contractor serving Houston and surrounding areas. 30+ years experience specializing in turnkey concrete, earthwork & site work, and underground utilities, tilt Wall, mid rise, WWTP, for commercial, industrial, and residential projects. Licensed & insured.",
-  url: ensureProtocol(process.env.NEXT_PUBLIC_SITE_URL || "https://balderasconcrete.com"),
+  url: ensureProtocol(process.env.NEXT_PUBLIC_SITE_URL || "https://www.balderasconcrete.com"),
   ogImage: "/images/og-image.png",
 };
 
@@ -113,6 +113,7 @@ export const navigation = {
     { name: "Home", href: "/" },
     { name: "About", href: "/about" },
     { name: "Services", href: "/services" },
+    { name: "Areas", href: "/areas" },
     { name: "Gallery", href: "/gallery" },
     { name: "Contact", href: "/contact" },
   ],
