@@ -1,10 +1,23 @@
 import type { MetadataRoute } from "next";
 import { siteConfig } from "@/src/lib/constants";
+import { getAllCitySlugs } from "@/src/lib/serviceAreaData";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = siteConfig.url;
 
+  // Get all city slugs for service area pages
+  const citySlugs = getAllCitySlugs();
+
+  // Generate service area page entries
+  const serviceAreaPages: MetadataRoute.Sitemap = citySlugs.map((slug) => ({
+    url: `${baseUrl}/areas/${slug}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
+  }));
+
   return [
+    // Main pages
     {
       url: baseUrl,
       lastModified: new Date(),
@@ -35,5 +48,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.8,
     },
+    // Service areas index
+    {
+      url: `${baseUrl}/areas`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    // Individual city pages
+    ...serviceAreaPages,
   ];
 }
