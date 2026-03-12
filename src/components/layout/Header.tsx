@@ -3,8 +3,9 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useUIStore } from "@/src/store/uiStore";
-import { navigation, siteConfig, contactInfo } from "@/src/lib/constants";
+import { navigation, contactInfo } from "@/src/lib/constants";
 import { Button } from "@/src/components/ui/Button";
+import { trackPhoneClick, trackCTAClick } from "@/src/components/analytics/GoogleAnalytics";
 import Image from "next/image";
 
 export function Header() {
@@ -20,6 +21,7 @@ export function Header() {
           <a
             href={`tel:${contactInfo.phoneRaw}`}
             className="hover:text-white/80 transition-colors"
+            onClick={() => trackPhoneClick("header-topbar")}
           >
             Call: {contactInfo.phone}
           </a>
@@ -66,7 +68,12 @@ export function Header() {
 
           {/* CTA and mobile menu button */}
           <div className="flex items-center gap-4">
-            <Button href="/contact" size="sm" className="hidden sm:inline-flex bg-[#1A2A3A] text-white hover:bg-[#1A2A3A]/90">
+            <Button
+              href="/contact"
+              size="sm"
+              className="hidden sm:inline-flex bg-[#1A2A3A] text-white hover:bg-[#1A2A3A]/90"
+              onClick={() => trackCTAClick("Get a Quote", "header")}
+            >
               Get a Quote
             </Button>
 

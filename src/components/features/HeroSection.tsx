@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { Button } from "@/src/components/ui/Button";
 import { Container } from "@/src/components/ui/Container";
+import { trackCTAClick } from "@/src/components/analytics/GoogleAnalytics";
 import { motion, useReducedMotion } from "framer-motion";
 import { smoothEasing } from "@/src/components/ui/animations";
 import blurPlaceholders from "@/src/data/blur-placeholders.json";
@@ -166,7 +167,12 @@ export function HeroSection({
             className="mt-10 flex flex-col sm:flex-row gap-4"
             variants={buttonContainerVariants}
           >
-            <Button href={primaryCta.href} size="lg" className="bg-orange text-white hover:bg-orange/90">
+            <Button
+              href={primaryCta.href}
+              size="lg"
+              className="bg-orange text-white hover:bg-orange/90"
+              onClick={() => trackCTAClick(primaryCta.text, "hero")}
+            >
               {primaryCta.text}
             </Button>
             <Button
@@ -174,6 +180,7 @@ export function HeroSection({
               variant="outline"
               size="lg"
               className="border-white text-white hover:bg-white hover:text-orange"
+              onClick={() => trackCTAClick(secondaryCta.text, "hero")}
             >
               {secondaryCta.text}
             </Button>

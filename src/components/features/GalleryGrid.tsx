@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { Container } from "@/src/components/ui/Container";
 import { SectionHeading } from "@/src/components/ui/SectionHeading";
+import { trackGalleryView } from "@/src/components/analytics/GoogleAnalytics";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { smoothEasing } from "@/src/components/ui/animations";
 
@@ -118,7 +119,10 @@ export function GalleryGrid({
             {images.map((image, index) => (
               <motion.button
                 key={index}
-                onClick={() => setSelectedImage(image.src)}
+                onClick={() => {
+                  setSelectedImage(image.src);
+                  trackGalleryView(index, image.alt);
+                }}
                 className="relative aspect-4/3 overflow-hidden rounded-lg group focus:outline-none focus:ring-2 focus:ring-brand focus:ring-offset-2"
                 variants={imageVariants}
                 whileHover={
