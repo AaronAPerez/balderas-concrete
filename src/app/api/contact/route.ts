@@ -34,6 +34,14 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 export async function POST(req: Request) {
   try {
     // Check for required environment variables
+    if (!process.env.DATABASE_URL) {
+      console.error("Missing DATABASE_URL environment variable");
+      return NextResponse.json(
+        { success: false, error: "Database not configured" },
+        { status: 500 }
+      );
+    }
+
     if (!process.env.RESEND_API_KEY) {
       console.error("Missing RESEND_API_KEY environment variable");
       return NextResponse.json(
@@ -84,9 +92,21 @@ export async function POST(req: Request) {
     try {
       await prisma.contactSubmission.create({ data });
     } catch (dbError) {
-      console.error("Database error:", dbError);
+      // Log detailed error for debugging
+      console.error("Database error details:", {
+        name: (dbError as Error).name,
+        message: (dbError as Error).message,
+        stack: (dbError as Error).stack,
+      });
+
+      // Check for specific Prisma errors
+      const errorMessage = (dbError as Error).message || "Unknown database error";
       return NextResponse.json(
-        { success: false, error: "Failed to save submission" },
+        {
+          success: false,
+          error: "Failed to save submission",
+          debug: process.env.NODE_ENV === "development" ? errorMessage : undefined
+        },
         { status: 500 }
       );
     }
