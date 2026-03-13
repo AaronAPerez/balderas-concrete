@@ -99,13 +99,15 @@ export async function POST(req: Request) {
         stack: (dbError as Error).stack,
       });
 
-      // Check for specific Prisma errors
+      // Return error details for debugging (temporarily enabled for production)
       const errorMessage = (dbError as Error).message || "Unknown database error";
+      const errorName = (dbError as Error).name || "Unknown";
       return NextResponse.json(
         {
           success: false,
           error: "Failed to save submission",
-          debug: process.env.NODE_ENV === "development" ? errorMessage : undefined
+          errorType: errorName,
+          errorDetail: errorMessage.substring(0, 200), // Truncate for safety
         },
         { status: 500 }
       );
