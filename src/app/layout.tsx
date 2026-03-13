@@ -6,6 +6,7 @@ import { Header } from "@/src/components/layout/Header";
 import { MobileNav } from "@/src/components/layout/MobileNav";
 import { Footer } from "@/src/components/layout/Footer";
 import { GoogleAnalytics } from "@/src/components/analytics/GoogleAnalytics";
+import { Analytics } from '@vercel/analytics/next';
 import { LocalBusinessSchema } from "@/src/components/seo/LocalBusinessSchema";
 import { siteConfig } from "@/src/lib/constants";
 import { Toaster } from "sonner";
@@ -105,7 +106,7 @@ export default function RootLayout({
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white/95 backdrop-blur-sm border border-slate-200`}
-        // className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white/95 backdrop-blur-sm border border-slate-200 dark:bg-[#121212]/95  dark:border-slate-700`}
+      // className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white/95 backdrop-blur-sm border border-slate-200 dark:bg-[#121212]/95  dark:border-slate-700`}
       >
         {process.env.NEXT_PUBLIC_GA_ID && (
           <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
@@ -123,6 +124,7 @@ export default function RootLayout({
           <MobileNav />
           <main id="main-content" className="min-h-screen">
             {children}
+            <Analytics />
           </main>
           <Footer />
           {/* Toast notification container */}

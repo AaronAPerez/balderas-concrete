@@ -9,7 +9,8 @@ import { smoothEasing } from "@/src/components/ui/animations";
 import blurPlaceholders from "@/src/data/blur-placeholders.json";
 
 interface HeroSectionProps {
-  title: string;
+  /** Title can be a string or React node for custom styling */
+  title: React.ReactNode;
   subtitle: string;
   backgroundImage?: string;
   primaryCta?: {
