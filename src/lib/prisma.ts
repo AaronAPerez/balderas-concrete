@@ -12,6 +12,7 @@ function createPrismaClient(): PrismaClient {
 
   // Use Neon serverless adapter for better connection handling
   if (connectionString) {
+    // Create the Prisma adapter with the connection string config
     const adapter = new PrismaNeon({ connectionString });
     return new PrismaClient({
       adapter,
