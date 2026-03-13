@@ -246,8 +246,8 @@ export default function TermsPage() {
               For questions about these Terms of Service, please contact us:
             </p>
             <ul>
-              <li>Phone: {contactInfo.phone}</li>
-              <li>Email: {contactInfo.email}</li>
+              <li>Phone: <a href={`tel:${contactInfo.phoneRaw}`} className="text-brand hover:text-accent transition-colors">{contactInfo.phone}</a></li>
+              <li>Email: <a href={`mailto:${contactInfo.email}`} className="text-brand hover:text-accent transition-colors">{contactInfo.email}</a></li>
               <li>Address: {contactInfo.address.full}</li>
             </ul>
           </motion.div>
