@@ -8,6 +8,7 @@ import { Footer } from "@/src/components/layout/Footer";
 import { GoogleAnalytics } from "@/src/components/analytics/GoogleAnalytics";
 import { LocalBusinessSchema } from "@/src/components/seo/LocalBusinessSchema";
 import { siteConfig } from "@/src/lib/constants";
+import { Toaster } from "sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -124,6 +125,15 @@ export default function RootLayout({
             {children}
           </main>
           <Footer />
+          {/* Toast notification container */}
+          <Toaster
+            position="top-center"
+            richColors
+            closeButton
+            toastOptions={{
+              duration: 5000,
+            }}
+          />
         </Providers>
       </body>
     </html>
