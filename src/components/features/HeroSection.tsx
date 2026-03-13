@@ -130,9 +130,10 @@ export function HeroSection({
           initial="hidden"
           animate="visible"
         >
-          {/* Animated title */}
+          {/* Animated title with text outline for visibility */}
           <motion.h1
-            className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white drop-shadow-md leading-tight"
+            className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight"
+            style={{ WebkitTextStroke: '1px #6B7280', paintOrder: 'stroke fill' }}
             variants={titleVariants}
           >
             {title}
@@ -154,7 +155,7 @@ export function HeroSection({
             <Button
               href={primaryCta.href}
               size="lg"
-              className="bg-orange text-white hover:bg-orange/90"
+              className="bg-brand text-white hover:bg-orange/90"
               onClick={() => trackCTAClick(primaryCta.text, "hero")}
             >
               {primaryCta.text}

@@ -12,7 +12,7 @@ export default function HomePage() {
       <HeroSection
         title={
           <>
-            <span className="text-orange-light">Built to Last.</span>
+            <span className="text-brand-light text-shadow-brand-light">Built to Last.</span>
             <br />
             <span className="text-white">Designed to Impress.</span>
           </>

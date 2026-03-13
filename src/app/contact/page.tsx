@@ -152,7 +152,7 @@ export default function ContactPage() {
   };
 
   const inputStyles =
-    "pt-1 w-full rounded-md border border-slate-300 px-4 py-3 text-base focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand min-h-[44px] transition-all duration-200";
+    "pt-1 w-full rounded-md border border-slate-300 px-4 py-3 text-base text-brand focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand min-h-[44px] transition-all duration-200";
 
   // Contact info data
   const contactItems = [

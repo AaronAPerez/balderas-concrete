@@ -42,12 +42,6 @@ const config: Config = {
           DEFAULT: "#000000",
           soft: "#1a1a1a",
         },
-        /* Orange accent for CTAs and highlights */
-        orange: {
-          DEFAULT: "#F97316", // Vibrant orange for CTAs
-          light: "#FB923C",   // Lighter orange for hover states
-          dark: "#EA580C",    // Darker orange for active states
-        },
       },
       /* Background color for body - references CSS variable */
       // backgroundColor: {
