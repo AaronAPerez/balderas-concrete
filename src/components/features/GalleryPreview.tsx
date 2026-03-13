@@ -19,8 +19,9 @@ function getBlurDataUrl(imagePath: string): string | undefined {
 }
 
 // Preview images for the gallery section
+// Note: Avoid using hero image (1000035716.jpg) to prevent duplicate loading
 const previewImages = [
-  { src: "/images/concrete/1000035716.jpg", alt: "Concrete driveway project" },
+  { src: "/images/concrete/1000037656.jpg", alt: "Concrete driveway project" },
   { src: "/images/concrete/1000035719.jpg", alt: "Concrete patio installation" },
   { src: "/images/concrete/1000037663.jpg", alt: "Stamped concrete work" },
 ];
@@ -116,6 +117,7 @@ export function GalleryPreview() {
                     src={image.src}
                     alt={image.alt}
                     fill
+                    loading="lazy"
                     className="object-cover"
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     placeholder="blur"

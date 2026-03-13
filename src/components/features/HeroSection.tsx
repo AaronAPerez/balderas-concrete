@@ -96,28 +96,10 @@ export function HeroSection({
     },
   };
 
-  // Background image scale animation for subtle parallax effect
-  const imageVariants = {
-    hidden: { scale: 1.1, opacity: 0 },
-    visible: {
-      scale: 1,
-      opacity: 1,
-      transition: {
-        duration: shouldReduceMotion ? 0.1 : 1.2,
-        ease: smoothEasing,
-      },
-    },
-  };
-
   return (
     <section className="relative min-h-150 lg:min-h-175 flex items-center overflow-hidden">
-      {/* Background image with overlay */}
-      <motion.div
-        className="absolute inset-0 z-0"
-        variants={imageVariants}
-        initial="hidden"
-        animate="visible"
-      >
+      {/* Background image with overlay - no opacity animation to avoid LCP delay */}
+      <div className="absolute inset-0 z-0">
         <Image
           src={backgroundImage}
           alt="Professional concrete work"
@@ -125,7 +107,8 @@ export function HeroSection({
           className="object-cover"
           priority
           fetchPriority="high"
-          sizes="(max-width: 640px) 640px, (max-width: 1024px) 1024px, 1920px"
+          quality={75}
+          sizes="100vw"
           placeholder="blur"
           blurDataURL={getBlurDataUrl(backgroundImage)}
         />
@@ -136,7 +119,7 @@ export function HeroSection({
             background: 'linear-gradient(to right, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.70) 50%, rgba(0,0,0,0.50) 100%)'
           }}
         />
-      </motion.div>
+      </div>
 
       {/* Animated content */}
       <Container className="relative z-10 py-20 lg:py-28">
