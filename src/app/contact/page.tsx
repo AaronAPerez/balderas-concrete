@@ -9,6 +9,7 @@ import { Container } from "@/src/components/ui/Container";
 import { contactInfo, services } from "@/src/lib/constants";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { smoothEasing, FadeInSection } from "@/src/components/ui/animations";
+import { toast } from "sonner";
 
 const schema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -51,12 +52,25 @@ export default function ContactPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
       });
-      if (!res.ok) throw new Error("Failed to submit");
+      if (!res.ok) {
+        const errorData = await res.json().catch(() => ({}));
+        throw new Error(errorData.error || "Failed to submit");
+      }
       return res.json();
     },
     onSuccess: () => {
       setSubmitted(true);
       reset();
+      // Show success toast notification
+      toast.success("Message sent successfully!", {
+        description: "We've received your request and will contact you within 24 hours.",
+      });
+    },
+    onError: (error: Error) => {
+      // Show error toast notification
+      toast.error("Failed to send message", {
+        description: error.message || "Please try again or call us directly.",
+      });
     },
   });
 
