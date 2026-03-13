@@ -117,6 +117,7 @@ export async function POST(req: Request) {
       const notificationResult = await resend.emails.send({
         from: `Balderas Concrete <${process.env.EMAIL_FROM}>`,
         to: process.env.CONTACT_NOTIFICATION_EMAIL,
+        replyTo: data.email, // Reply goes directly to the user who submitted the form
         subject: `New contact from ${data.name}`,
         text: `
 Name: ${data.name}
