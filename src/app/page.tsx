@@ -10,8 +10,13 @@ export default function HomePage() {
   return (
     <>
       <HeroSection
-        title="Built to Last.
-        Designed to Impress"
+        title={
+          <>
+            <span className="text-orange-light">Built to Last.</span>
+            <br />
+            <span className="text-white">Designed to Impress.</span>
+          </>
+        }
         subtitle="Comprehensive earthwork, turnkey concrete, and underground utility services for commercial, industrial, and residential projects. Serving Houston and surrounding areas within 75 miles."
       />
       <ServicesGrid />

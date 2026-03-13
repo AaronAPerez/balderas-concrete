@@ -41,9 +41,14 @@ export default function ContactPage() {
     handleSubmit,
     formState: { errors },
     reset,
+    watch,
   } = useForm<FormValues>({
     resolver: zodResolver(schema),
   });
+
+  // Watch select values to toggle placeholder-shown class for accessibility
+  const serviceValue = watch("service");
+  const budgetValue = watch("budget");
 
   const mutation = useMutation({
     mutationFn: async (data: FormValues) => {
@@ -512,7 +517,7 @@ export default function ContactPage() {
                         <select
                           id="service"
                           {...register("service")}
-                          className={inputStyles}
+                          className={`${inputStyles} ${!serviceValue ? "placeholder-shown" : ""}`}
                         >
                           <option value="">Select a service</option>
                           {services.map((service) => (
@@ -534,7 +539,7 @@ export default function ContactPage() {
                         <select
                           id="budget"
                           {...register("budget")}
-                          className={inputStyles}
+                          className={`${inputStyles} ${!budgetValue ? "placeholder-shown" : ""}`}
                         >
                           <option value="">Select budget range</option>
                           <option value="under-5k">Under $5,000</option>
