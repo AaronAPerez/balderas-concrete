@@ -20,7 +20,7 @@ export const siteConfig = {
 export const contactInfo = {
   phone: "(281) 720-9070", // Update with actual phone
   phoneRaw: "+12817209070", // For tel: links
-  email: "contact@balderasconcrete.com", // Update with actual email
+  email: "contact@mail.balderasconcrete.com", // Update with actual email
   address: {
     street: "", // Update with actual address
     city: "Houston",
