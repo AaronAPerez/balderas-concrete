@@ -175,7 +175,7 @@ ${data.message}
                 alt="Balderas Concrete"
                 width="56"
                 height="56"
-                style="display: block; margin: 0 auto 15px auto;"
+                style="display: block; margin: 0 auto 15px auto; border-radius: 9999px; background-color: rgba(255, 255, 255, 0.95); padding: 8px;"
               />
               <h1 style="color: #ffffff; margin: 0; font-size: 28px; font-weight: bold;">BALDERAS CONCRETE</h1>
               <p style="color: #9CA3AF; margin: 8px 0 0 0; font-size: 14px; letter-spacing: 1px;">QUALITY CONCRETE SERVICES</p>
