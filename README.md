@@ -11,6 +11,9 @@ Professional concrete and earthwork contractor website serving Houston and surro
 
 A modern, SEO-optimized website for Balderas Concrete, a commercial and industrial concrete contractor with 30+ years of experience. The site showcases their services including turnkey concrete, earthwork & site work, and underground utilities.
 
+### Hero Section
+![Balderas Concrete Hero Section](public/images/hero.png)
+
 ## Features
 
 - **Modern Stack**: Next.js 16 App Router with React 19 and TypeScript
