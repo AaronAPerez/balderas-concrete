@@ -6,7 +6,7 @@ This guide covers setting up and configuring the contact form system, including 
 
 The contact form system consists of three main components:
 
-1. **Frontend Form** (`src/app/contact/page.tsx`) - Client-side form with validation
+1. **Frontend Form** (`src/app/contact/page.tsx`) - Client-side form with validation, loading states, and toast notifications
 2. **API Route** (`src/app/api/contact/route.ts`) - Server-side form handler
 3. **Database** (PostgreSQL via Neon) - Stores all submissions
 
@@ -14,61 +14,53 @@ The contact form system consists of three main components:
 
 When a user submits the form:
 1. Form data is validated on both client and server
-2. Submission is saved to the database
-3. **Notification email** is sent to the company
-4. **Auto-reply email** is sent to the customer
+2. Submit button shows loading spinner and "Sending..." text
+3. Submission is saved to the database
+4. **Notification email** is sent to the company (with reply-to set to customer)
+5. **Auto-reply email** with branded HTML template is sent to the customer
+6. Toast notification appears in top-right corner
 
 ## Prerequisites
 
 - [Resend](https://resend.com) account for email delivery
-- [Neon](https://neon.tech) PostgreSQL database (or compatible PostgreSQL)
+- [Neon](https://neon.tech) PostgreSQL database
 - Verified domain for sending emails
 
-## 1. Resend Setup
+## 1. Neon Database Setup
 
-### Create Account
+### Create Neon Project
 
-1. Go to [resend.com](https://resend.com) and create an account
-2. Verify your email address
+1. Go to [neon.tech](https://neon.tech) and create an account
+2. Create a new project (e.g., `balderas_concrete`)
+3. Note your project is in a specific region (e.g., `us-east-1`)
 
-### Get API Key
+### Connection String
 
-1. Navigate to **API Keys** in the Resend dashboard
-2. Click **Create API Key**
-3. Name it (e.g., `balderas-concrete-production`)
-4. Copy the key (starts with `re_`)
+Get your connection string from Neon dashboard. Use the **pooled** connection for serverless:
 
-### Verify Domain
+```env
+# Use pooled connection for Vercel serverless
+DATABASE_URL="postgresql://neondb_owner:PASSWORD@ep-xxxxx-pooler.REGION.aws.neon.tech/neondb?sslmode=require"
+```
 
-**Important**: To send emails from your own domain (e.g., `no-reply@balderasconcrete.com`), you must verify the domain.
-
-1. Go to **Domains** in Resend dashboard
-2. Click **Add Domain**
-3. Enter your domain (e.g., `balderasconcrete.com`)
-4. Add the DNS records Resend provides:
-
-| Type | Name | Value |
-|------|------|-------|
-| MX | send | feedback-smtp.region.amazonses.com |
-| TXT | send | v=spf1 include:amazonses.com ~all |
-| TXT | resend._domainkey | (provided by Resend) |
-
-5. Wait for verification (can take up to 72 hours, usually faster)
-6. Once verified, you can send from any address at that domain
-
-### Testing Without Domain Verification
-
-During development, you can use Resend's test domain:
-- From address: `onboarding@resend.dev`
-- Limited to sending to the email you signed up with
-
-## 2. Database Setup
+**Important**: Remove `channel_binding=require` from the connection string when deploying to Vercel - it can cause authentication issues in serverless environments.
 
 ### Prisma Schema
 
-The contact submissions are stored using this schema (`prisma/schema.prisma`):
+The contact submissions use this schema (`prisma/schema.prisma`):
 
 ```prisma
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider      = "prisma-client-js"
+  output        = "../src/generated/prisma"
+  binaryTargets = ["native", "rhel-openssl-3.0.x", "debian-openssl-3.0.x"]
+}
+
 model ContactSubmission {
   id        String   @id @default(cuid())
   name      String
@@ -82,378 +74,287 @@ model ContactSubmission {
 }
 ```
 
-### Database Connection
+**Key Configuration Notes**:
+- Use `prisma-client-js` provider (not `prisma-client`) for stability
+- Include `rhel-openssl-3.0.x` and `debian-openssl-3.0.x` binary targets for Vercel deployment
+- Output to custom path `../src/generated/prisma`
 
-1. Create a Neon project at [neon.tech](https://neon.tech)
-2. Get your connection string from the dashboard
-3. Add to environment variables:
-   ```env
-   DATABASE_URL="postgresql://user:password@host/database?sslmode=require"
-   ```
+### Prisma Client Setup
 
-### Generate Prisma Client
+The Prisma client (`src/lib/prisma.ts`) uses a singleton pattern:
 
-```bash
-npx prisma generate
+```typescript
+import { PrismaClient } from "@/src/generated/prisma";
+
+const globalForPrisma = global as unknown as { prisma: PrismaClient | undefined };
+
+function createPrismaClient(): PrismaClient {
+  return new PrismaClient({
+    log: process.env.NODE_ENV === "development" ? ["error", "warn"] : ["error"],
+  });
+}
+
+export const prisma = globalForPrisma.prisma ?? createPrismaClient();
+
+if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = prisma;
 ```
 
-### Push Schema to Database
+**Note**: We use the standard Prisma client without the Neon adapter. The pooled connection URL works directly with Prisma in Vercel serverless functions.
+
+### Generate and Push Schema
 
 ```bash
+# Generate Prisma client
+npx prisma generate
+
+# Push schema to database
 npx prisma db push
 ```
 
 ### View Submissions
 
-Use Prisma Studio to view form submissions:
 ```bash
 npx prisma studio
 ```
 
-Or query directly in Neon console:
+Or query in Neon console:
 ```sql
 SELECT * FROM "ContactSubmission" ORDER BY "createdAt" DESC;
 ```
 
+## 2. Resend Email Setup
+
+### Create Account & API Key
+
+1. Go to [resend.com](https://resend.com) and create an account
+2. Navigate to **API Keys** > **Create API Key**
+3. Copy the key (starts with `re_`)
+
+### Verify Domain
+
+1. Go to **Domains** > **Add Domain**
+2. Enter your domain (e.g., `balderasconcrete.com`)
+3. Add the DNS records Resend provides
+4. Wait for verification
+
+### Email Configuration
+
+The system sends two emails:
+
+1. **Notification to Company**: Plain text with all form details, `replyTo` set to customer email
+2. **Auto-Reply to Customer**: Branded HTML template with logo
+
 ## 3. Environment Variables
 
-Add these to your `.env.local` file:
+### Local Development (`.env.local`)
 
 ```env
-# Database (Neon PostgreSQL)
-DATABASE_URL="postgresql://user:password@host/database?sslmode=require"
+# Database (Neon PostgreSQL - use pooled connection)
+DATABASE_URL="postgresql://neondb_owner:PASSWORD@ep-xxxxx-pooler.REGION.aws.neon.tech/neondb?sslmode=require"
 
 # Resend Email Service
 RESEND_API_KEY="re_xxxxxxxxxxxxxxxxxxxxx"
 
 # Email Configuration
+EMAIL_FROM="no-reply@mail.balderasconcrete.com"
 CONTACT_NOTIFICATION_EMAIL="owner@balderasconcrete.com"
-COMPANY_PHONE="(832) 678-9095"
+
+# Optional
+COMPANY_PHONE="(281) 720-9070"
+WEBSITE_URL="https://balderasconcrete.com"
 ```
 
-### Variable Reference
+### Vercel Production
 
-| Variable | Description | Example |
-|----------|-------------|---------|
-| `DATABASE_URL` | PostgreSQL connection string | `postgresql://...` |
-| `RESEND_API_KEY` | Resend API key | `re_abc123...` |
-| `CONTACT_NOTIFICATION_EMAIL` | Email to receive form submissions | `owner@company.com` |
-| `COMPANY_PHONE` | Phone shown in auto-reply | `(555) 123-4567` |
+Add these in Vercel Dashboard > Settings > Environment Variables:
 
-## 4. API Route Configuration
+| Variable | Description | Required |
+|----------|-------------|----------|
+| `DATABASE_URL` | Neon pooled connection (without `channel_binding=require`) | Yes |
+| `RESEND_API_KEY` | Resend API key | Yes |
+| `EMAIL_FROM` | Verified sender email | Yes |
+| `CONTACT_NOTIFICATION_EMAIL` | Where to receive submissions | Yes |
+| `COMPANY_PHONE` | Phone shown in auto-reply | No |
+| `WEBSITE_URL` | Used for logo URL in emails | No |
 
-The API route (`src/app/api/contact/route.ts`) handles:
+## 4. Frontend Features
+
+### Toast Notifications
+
+Toast notifications are configured in `src/app/layout.tsx`:
+
+```typescript
+import { Toaster } from "sonner";
+
+<Toaster
+  position="top-right"  // Visible regardless of scroll position
+  richColors
+  closeButton
+  toastOptions={{
+    duration: 5000,
+  }}
+/>
+```
+
+### Loading State
+
+The submit button shows a loading state during submission:
+
+```typescript
+<button
+  type="submit"
+  disabled={mutation.isPending}
+  className="... disabled:opacity-50 disabled:cursor-not-allowed"
+>
+  {mutation.isPending ? (
+    <>
+      <SpinnerIcon /> Sending...
+    </>
+  ) : (
+    "Submit Request"
+  )}
+</button>
+```
 
 ### Form Validation
 
-Uses Zod schema to validate incoming data:
+Uses React Hook Form with Zod validation:
 
 ```typescript
-const contactSchema = z.object({
-  name: z.string().min(2),
-  email: z.string().email(),
+const schema = z.object({
+  name: z.string().min(2, "Name must be at least 2 characters"),
+  email: z.string().email("Please enter a valid email"),
   phone: z.string().optional(),
   service: z.string().optional(),
   city: z.string().optional(),
   budget: z.string().optional(),
-  message: z.string().min(10),
+  message: z.string().min(10, "Please provide at least 10 characters"),
 });
 ```
 
-### Company Notification Email
+## 5. HTML Email Template
 
-Sent to `CONTACT_NOTIFICATION_EMAIL` with all form details:
+The auto-reply email uses a branded HTML template with:
 
-```typescript
-await resend.emails.send({
-  from: "Balderas Concrete <no-reply@balderasconcrete.com>",
-  to: process.env.CONTACT_NOTIFICATION_EMAIL!,
-  subject: `New contact from ${data.name}`,
-  text: `
-Name: ${data.name}
-Email: ${data.email}
-Phone: ${data.phone ?? "N/A"}
-Service: ${data.service ?? "N/A"}
-City: ${data.city ?? "N/A"}
-Budget: ${data.budget ?? "N/A"}
-
-Message:
-${data.message}
-  `,
-});
-```
-
-### Auto-Reply to Customer
-
-Sent to the customer's email address:
+- Company logo (loaded from `WEBSITE_URL/images/logo/logo.png`)
+- Brand colors (#2C4557 header)
+- Request summary box
+- Click-to-call button
+- Plain text fallback
 
 ```typescript
-await resend.emails.send({
-  from: "Balderas Concrete <no-reply@balderasconcrete.com>",
-  to: data.email,
-  subject: "We received your request – Balderas Concrete",
-  text: `
-Hi ${data.name},
-
-Thank you for contacting Balderas Concrete. We've received your request and will get back to you shortly.
-
-If this is urgent, please call us at ${process.env.COMPANY_PHONE ?? "our main phone number"}.
-
-Best regards,
-Balderas Concrete
-  `,
-});
+const htmlTemplate = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Thank You - Balderas Concrete</title>
+</head>
+<body>
+  <table>
+    <!-- Header with logo -->
+    <tr>
+      <td style="background-color: #2C4557; padding: 30px 40px; text-align: center;">
+        <img
+          src="${websiteUrl}/images/logo/logo.png"
+          alt="Balderas Concrete"
+          width="56"
+          height="56"
+        />
+        <h1>BALDERAS CONCRETE</h1>
+      </td>
+    </tr>
+    <!-- Content -->
+    ...
+  </table>
+</body>
+</html>
+`;
 ```
 
-## 5. Customizing Emails
+**Important**: Use standard HTML `<img>` tags with absolute URLs in email templates, not React's `<Image>` component.
 
-### Change From Address
+## 6. Deployment
 
-Update the `from` field in both email sends:
-
-```typescript
-from: "Your Company <no-reply@yourdomain.com>",
-```
-
-**Note**: The domain must be verified in Resend.
-
-### Add HTML Emails
-
-For richer emails, use the `html` property instead of `text`:
-
-```typescript
-await resend.emails.send({
-  from: "Balderas Concrete <no-reply@balderasconcrete.com>",
-  to: data.email,
-  subject: "We received your request",
-  html: `
-    <h1>Thank you, ${data.name}!</h1>
-    <p>We've received your request and will get back to you shortly.</p>
-    <p>Call us at <a href="tel:${process.env.COMPANY_PHONE}">${process.env.COMPANY_PHONE}</a></p>
-  `,
-});
-```
-
-### Use React Email Templates
-
-For more complex emails, consider using [React Email](https://react.email):
+### Deploy to Vercel
 
 ```bash
-npm install @react-email/components
+npx vercel --prod
 ```
 
-Then create templates in `src/emails/` directory.
+### Deployment Checklist
 
-## 6. Email Forwarding Options
+- [ ] Verify `DATABASE_URL` in Vercel uses pooled connection
+- [ ] Verify `DATABASE_URL` does NOT contain `channel_binding=require`
+- [ ] All required environment variables are set
+- [ ] Domain is verified in Resend
+- [ ] Run `npx prisma db push` if schema changed
 
-### Multiple Recipients
+### Common Production Issues
 
-To notify multiple people, use an array:
+| Issue | Cause | Solution |
+|-------|-------|----------|
+| 500 error on submit | `PrismaClientInitializationError` | Use `prisma-client-js` provider, include all binary targets |
+| Query Engine not found | Wrong binary targets | Add `rhel-openssl-3.0.x` and `debian-openssl-3.0.x` |
+| Database connection fails | `channel_binding=require` | Remove from Vercel `DATABASE_URL` |
+| Emails not arriving | Domain not verified | Complete DNS verification in Resend |
+| Logo not showing in email | Relative URL | Use absolute URL with `WEBSITE_URL` |
 
-```typescript
-to: ["owner@company.com", "sales@company.com"],
+## 7. Troubleshooting
+
+### Test Production API
+
+```bash
+curl -X POST https://balderasconcrete.com/api/contact \
+  -H "Content-Type: application/json" \
+  -d '{"name":"Test","email":"test@example.com","message":"Test message here"}'
 ```
 
-### CC and BCC
-
-```typescript
-await resend.emails.send({
-  from: "...",
-  to: "primary@company.com",
-  cc: ["manager@company.com"],
-  bcc: ["records@company.com"],
-  subject: "...",
-  text: "...",
-});
+Expected response:
+```json
+{"success":true}
 ```
+
+### Check Vercel Logs
+
+```bash
+npx vercel logs balderasconcrete.com
+```
+
+### Debug Database Connection
+
+1. Verify DATABASE_URL format in Vercel
+2. Check Neon dashboard for connection status
+3. Ensure table exists: `npx prisma db push`
+
+### Check Resend Logs
+
+1. Go to Resend dashboard > **Emails**
+2. View sent/failed emails with error details
+
+## 8. Security
 
 ### Reply-To Header
 
-Set reply-to so responses go to the customer:
+The notification email uses `replyTo` so replies go directly to the customer:
 
 ```typescript
 await resend.emails.send({
-  from: "Balderas Concrete <no-reply@balderasconcrete.com>",
-  to: process.env.CONTACT_NOTIFICATION_EMAIL!,
+  from: `Balderas Concrete <${process.env.EMAIL_FROM}>`,
+  to: process.env.CONTACT_NOTIFICATION_EMAIL,
   replyTo: data.email,  // Replies go to customer
   subject: `New contact from ${data.name}`,
   text: "...",
 });
 ```
 
-## 7. Testing
+### Input Validation
 
-### Local Testing
-
-1. Start development server:
-   ```bash
-   npm run dev
-   ```
-
-2. Go to `http://localhost:3000/contact`
-
-3. Fill out the form and submit
-
-4. Check:
-   - Console for any errors
-   - `CONTACT_NOTIFICATION_EMAIL` inbox for notification
-   - Customer email for auto-reply
-   - Prisma Studio for database entry
-
-### Test with Resend Sandbox
-
-During development without a verified domain:
-- Change `from` to `onboarding@resend.dev`
-- Emails only deliver to your Resend account email
-
-### Verify Database Storage
-
-```bash
-npx prisma studio
-```
-
-Open browser and check `ContactSubmission` table.
-
-## 8. Production Deployment
-
-### Vercel Deployment
-
-1. Add environment variables in Vercel dashboard:
-   - `DATABASE_URL`
-   - `RESEND_API_KEY`
-   - `CONTACT_NOTIFICATION_EMAIL`
-   - `COMPANY_PHONE`
-
-2. Ensure domain is verified in Resend
-
-3. Deploy:
-   ```bash
-   vercel --prod
-   ```
-
-### Post-Deployment Checklist
-
-- [ ] Submit test form on production site
-- [ ] Verify notification email arrives
-- [ ] Verify auto-reply email arrives
-- [ ] Check database for submission
-- [ ] Test from different email providers (Gmail, Outlook, etc.)
-
-## 9. Troubleshooting
-
-### Common Issues
-
-| Issue | Cause | Solution |
-|-------|-------|----------|
-| 400 error on submit | Validation failed | Check browser console for specific field |
-| Emails not arriving | Domain not verified | Complete DNS verification in Resend |
-| Emails in spam | Domain reputation | Add SPF/DKIM records, warm up domain |
-| Database error | Connection issue | Check `DATABASE_URL` is correct |
-| API key invalid | Wrong key | Regenerate key in Resend dashboard |
-
-### Check Resend Logs
-
-1. Go to Resend dashboard
-2. Click **Emails** in sidebar
-3. View sent/failed emails with details
-
-### Debug API Route
-
-Add logging to see what's happening:
-
-```typescript
-export async function POST(req: Request) {
-  try {
-    const body = await req.json();
-    console.log("Form data received:", body);
-
-    const data = contactSchema.parse(body);
-    console.log("Validation passed");
-
-    await prisma.contactSubmission.create({ data });
-    console.log("Saved to database");
-
-    // ... email sends
-
-  } catch (error) {
-    console.error("Contact form error:", error);
-    return NextResponse.json({ success: false }, { status: 400 });
-  }
-}
-```
-
-### Email Deliverability
-
-To improve email deliverability:
-
-1. **SPF Record**: Already included with Resend setup
-2. **DKIM**: Resend provides this record
-3. **DMARC**: Add optional record:
-   ```
-   TXT _dmarc.yourdomain.com "v=DMARC1; p=none; rua=mailto:dmarc@yourdomain.com"
-   ```
-
-## 10. Security Considerations
-
-### Rate Limiting
-
-Consider adding rate limiting to prevent abuse:
-
-```typescript
-// Example using upstash/ratelimit
-import { Ratelimit } from "@upstash/ratelimit";
-import { Redis } from "@upstash/redis";
-
-const ratelimit = new Ratelimit({
-  redis: Redis.fromEnv(),
-  limiter: Ratelimit.slidingWindow(5, "1 h"), // 5 per hour
-});
-
-export async function POST(req: Request) {
-  const ip = req.headers.get("x-forwarded-for") ?? "anonymous";
-  const { success } = await ratelimit.limit(ip);
-
-  if (!success) {
-    return NextResponse.json(
-      { error: "Too many requests" },
-      { status: 429 }
-    );
-  }
-  // ... rest of handler
-}
-```
-
-### Honeypot Field
-
-Add a hidden field to catch bots:
-
-```typescript
-// In form schema
-const schema = z.object({
-  // ... existing fields
-  website: z.string().max(0), // Honeypot - should be empty
-});
-
-// In form JSX (hidden from users, visible to bots)
-<input
-  {...register("website")}
-  className="absolute -left-2499.75"
-  tabIndex={-1}
-  autoComplete="off"
-/>
-```
-
-### Input Sanitization
-
-The Zod validation provides basic sanitization. For additional security, consider sanitizing HTML:
-
-```bash
-npm install sanitize-html
-```
+Both client and server validate inputs using Zod schemas to prevent injection attacks.
 
 ## Related Documentation
 
-- [Deployment Guide](./DEPLOYMENT.md)
-- [Analytics Setup](./ANALYTICS.md) - Track form submissions
 - [Resend Documentation](https://resend.com/docs)
-- [Prisma Documentation](https://www.prisma.io/docs)
+- [Prisma with Neon](https://www.prisma.io/docs/guides/database/neon)
+- [Neon Serverless Driver](https://neon.tech/docs/serverless/serverless-driver)
+- [Sonner Toast Documentation](https://sonner.emilkowal.ski/)
