@@ -9,10 +9,13 @@ import { Resend } from "resend";
  */
 const contactSchema = z.object({
   name: z.string().min(2).max(50),
-  email: z.string().min(5).max(100).refine(
-    (val) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val),
-    { message: 'Invalid email address' }
-  ),
+  email: z
+    .string()
+    .min(5)
+    .max(100)
+    .refine((val) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val), {
+      message: "Invalid email address",
+    }),
   phone: z.string().optional(),
   service: z.string().optional(),
   city: z.string().optional(),
@@ -38,7 +41,7 @@ export async function POST(req: Request) {
       console.error("Missing DATABASE_URL environment variable");
       return NextResponse.json(
         { success: false, error: "Database not configured" },
-        { status: 500 }
+        { status: 500 },
       );
     }
 
@@ -46,7 +49,7 @@ export async function POST(req: Request) {
       console.error("Missing RESEND_API_KEY environment variable");
       return NextResponse.json(
         { success: false, error: "Email service not configured" },
-        { status: 500 }
+        { status: 500 },
       );
     }
 
@@ -54,7 +57,7 @@ export async function POST(req: Request) {
       console.error("Missing EMAIL_FROM environment variable");
       return NextResponse.json(
         { success: false, error: "Email service not configured" },
-        { status: 500 }
+        { status: 500 },
       );
     }
 
@@ -62,7 +65,7 @@ export async function POST(req: Request) {
       console.error("Missing CONTACT_NOTIFICATION_EMAIL environment variable");
       return NextResponse.json(
         { success: false, error: "Email service not configured" },
-        { status: 500 }
+        { status: 500 },
       );
     }
 
@@ -78,11 +81,11 @@ export async function POST(req: Request) {
           success: false,
           error: "Validation failed",
           details: zodErrors.map((issue) => ({
-            field: issue.path.join('.'),
-            message: issue.message
-          }))
+            field: issue.path.join("."),
+            message: issue.message,
+          })),
         },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -100,7 +103,8 @@ export async function POST(req: Request) {
       });
 
       // Return error details for debugging (temporarily enabled for production)
-      const errorMessage = (dbError as Error).message || "Unknown database error";
+      const errorMessage =
+        (dbError as Error).message || "Unknown database error";
       const errorName = (dbError as Error).name || "Unknown";
       return NextResponse.json(
         {
@@ -109,7 +113,7 @@ export async function POST(req: Request) {
           errorType: errorName,
           errorDetail: errorMessage.substring(0, 200), // Truncate for safety
         },
-        { status: 500 }
+        { status: 500 },
       );
     }
 
@@ -145,9 +149,10 @@ ${data.message}
     // Send auto-reply confirmation to customer with branded HTML template
     try {
       const companyPhone = process.env.COMPANY_PHONE ?? "(281) 720-9070";
-      const websiteUrl = process.env.WEBSITE_URL ?? "https://balderasconcrete.com";
+      const websiteUrl =
+        process.env.WEBSITE_URL ?? "https://balderasconcrete.com";
 
-      // Branded HTML email template
+      // Branded HTML email template with logo
       const htmlTemplate = `
 <!DOCTYPE html>
 <html lang="en">
@@ -162,9 +167,16 @@ ${data.message}
       <td align="center">
         <table role="presentation" width="600" cellspacing="0" cellpadding="0" style="background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
 
-          <!-- Header with brand color -->
+          <!-- Header with brand color and logo -->
           <tr>
             <td style="background-color: #2C4557; padding: 30px 40px; text-align: center;">
+              <img
+                src="${websiteUrl}/images/logo/logo.png"
+                alt="Balderas Concrete"
+                width="56"
+                height="56"
+                style="display: block; margin: 0 auto 15px auto;"
+              />
               <h1 style="color: #ffffff; margin: 0; font-size: 28px; font-weight: bold;">BALDERAS CONCRETE</h1>
               <p style="color: #9CA3AF; margin: 8px 0 0 0; font-size: 14px; letter-spacing: 1px;">QUALITY CONCRETE SERVICES</p>
             </td>
@@ -184,9 +196,9 @@ ${data.message}
                 <tr>
                   <td style="padding: 20px;">
                     <p style="color: #2C4557; font-weight: bold; margin: 0 0 10px 0; font-size: 14px;">YOUR REQUEST SUMMARY:</p>
-                    ${data.service ? `<p style="color: #4B5563; margin: 5px 0; font-size: 14px;"><strong>Service:</strong> ${data.service}</p>` : ''}
-                    ${data.city ? `<p style="color: #4B5563; margin: 5px 0; font-size: 14px;"><strong>Location:</strong> ${data.city}</p>` : ''}
-                    ${data.budget ? `<p style="color: #4B5563; margin: 5px 0; font-size: 14px;"><strong>Budget:</strong> ${data.budget}</p>` : ''}
+                    ${data.service ? `<p style="color: #4B5563; margin: 5px 0; font-size: 14px;"><strong>Service:</strong> ${data.service}</p>` : ""}
+                    ${data.city ? `<p style="color: #4B5563; margin: 5px 0; font-size: 14px;"><strong>Location:</strong> ${data.city}</p>` : ""}
+                    ${data.budget ? `<p style="color: #4B5563; margin: 5px 0; font-size: 14px;"><strong>Budget:</strong> ${data.budget}</p>` : ""}
                   </td>
                 </tr>
               </table>
@@ -199,7 +211,7 @@ ${data.message}
               <table role="presentation" cellspacing="0" cellpadding="0">
                 <tr>
                   <td style="background-color: #2C4557; border-radius: 6px;">
-                    <a href="tel:${companyPhone.replace(/[^0-9]/g, '')}" style="display: inline-block; padding: 14px 28px; color: #ffffff; text-decoration: none; font-weight: bold; font-size: 16px;">
+                    <a href="tel:${companyPhone.replace(/[^0-9]/g, "")}" style="display: inline-block; padding: 14px 28px; color: #ffffff; text-decoration: none; font-weight: bold; font-size: 16px;">
                       📞 Call ${companyPhone}
                     </a>
                   </td>
@@ -237,9 +249,9 @@ Hi ${data.name},
 
 Thank you for contacting Balderas Concrete! We've received your request and will get back to you within 24 hours.
 
-${data.service ? `Service: ${data.service}` : ''}
-${data.city ? `Location: ${data.city}` : ''}
-${data.budget ? `Budget: ${data.budget}` : ''}
+${data.service ? `Service: ${data.service}` : ""}
+${data.city ? `Location: ${data.city}` : ""}
+${data.budget ? `Budget: ${data.budget}` : ""}
 
 Need immediate assistance? Call us at ${companyPhone}
 
@@ -272,7 +284,7 @@ ${websiteUrl}
     // Return a generic error message to the client
     return NextResponse.json(
       { success: false, error: "An unexpected error occurred" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

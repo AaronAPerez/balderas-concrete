@@ -127,9 +127,9 @@ export default function RootLayout({
             <Analytics />
           </main>
           <Footer />
-          {/* Toast notification container */}
+          {/* Toast notification container - positioned top-right for visibility */}
           <Toaster
-            position="top-center"
+            position="top-right"
             richColors
             closeButton
             toastOptions={{
