@@ -95,12 +95,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        {/* Preload LCP image in optimized AVIF format for faster rendering */}
+        {/* Preload LCP hero image with responsive sizes for faster rendering */}
         <link
           rel="preload"
           as="image"
-          type="image/avif"
-          href="/_next/image?url=%2Fimages%2Fconcrete%2F1000035716.jpg&w=1920&q=75"
+          href="/_next/image?url=%2Fimages%2Fconcrete%2F1000035716.jpg&w=1920&q=70"
+          imageSrcSet="/_next/image?url=%2Fimages%2Fconcrete%2F1000035716.jpg&w=640&q=70 640w, /_next/image?url=%2Fimages%2Fconcrete%2F1000035716.jpg&w=1080&q=70 1080w, /_next/image?url=%2Fimages%2Fconcrete%2F1000035716.jpg&w=1920&q=70 1920w"
+          imageSizes="(max-width: 640px) 640px, (max-width: 1024px) 1024px, 1920px"
           fetchPriority="high"
         />
       </head>

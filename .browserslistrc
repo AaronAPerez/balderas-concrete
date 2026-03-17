@@ -1,0 +1,12 @@
+# Target only modern browsers to avoid legacy polyfills
+# These browsers all support ES2020+ features natively:
+# - Array.prototype.at, flat, flatMap
+# - Object.fromEntries, hasOwn
+# - String.prototype.trimStart, trimEnd
+
+last 2 Chrome versions
+last 2 Firefox versions
+last 2 Safari versions
+last 2 Edge versions
+not dead
+not IE 11

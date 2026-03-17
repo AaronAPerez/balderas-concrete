@@ -17,6 +17,10 @@ const nextConfig: NextConfig = {
     optimizeCss: true, // Minify and optimize CSS output
   },
 
+  // Use browserslist for SWC compilation - avoids unnecessary polyfills
+  // Targets modern browsers only (defined in .browserslistrc)
+  transpilePackages: [],
+
   // Performance headers
   async headers() {
     return [
