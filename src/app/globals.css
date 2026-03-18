@@ -95,9 +95,11 @@ body {
   font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
 }
 
-/* Smooth scrolling */
+/* Smooth scrolling with offset for sticky header */
+/* Header height: top bar (~28px on desktop) + nav (60px) ≈ 88px, using 6rem (96px) for safety */
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 6rem;
 }
 
 /* Focus styles for accessibility */
