@@ -177,7 +177,7 @@ export default function ServiceAreasPage() {
 
       <CTABanner
         title="Ready to Get Started?"
-        subtitle="Contact us today for a free estimate on your concrete or earthwork project."
+        subtitle="Contact us today for an estimate on your concrete or earthwork project."
       />
     </>
   );

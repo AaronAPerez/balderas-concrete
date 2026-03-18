@@ -254,7 +254,7 @@ export function getCityPageTitle(city: CityData): string {
  * Generate SEO-optimized meta description for a city
  */
 export function getCityPageDescription(city: CityData): string {
-  return `Professional concrete contractor serving ${city.name}, Texas. Balderas Concrete offers earthwork, turnkey concrete, and underground utilities. Licensed & insured. Call (281) 720-9070 for a free estimate.`;
+  return `Professional concrete contractor serving ${city.name}, Texas. Balderas Concrete offers earthwork, turnkey concrete, and underground utilities. Licensed & insured. Call (281) 720-9070 for an estimate.`;
 }
 
 /**
