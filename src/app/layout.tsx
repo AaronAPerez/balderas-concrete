@@ -96,12 +96,13 @@ export default function RootLayout({
     <html lang="en">
       <head>
         {/* Preload LCP hero image with responsive sizes for faster rendering */}
+        {/* Note: Source image is 1440px wide - widths must not exceed source dimensions */}
         <link
           rel="preload"
           as="image"
-          href="/_next/image?url=%2Fimages%2Fconcrete%2Fprofessional-concrete-contractors-houston-tx.jpg&w=1920&q=70"
-          imageSrcSet="/_next/image?url=%2Fimages%2Fconcrete%2Fprofessional-concrete-contractors-houston-tx.jpg&w=640&q=70 640w, /_next/image?url=%2Fimages%2Fconcrete%2Fprofessional-concrete-contractors-houston-tx.jpg&w=1080&q=70 1080w, /_next/image?url=%2Fimages%2Fconcrete%2Fprofessional-concrete-contractors-houston-tx.jpg&w=1920&q=70 1920w"
-          imageSizes="(max-width: 640px) 640px, (max-width: 1024px) 1024px, 1920px"
+          href="/_next/image?url=%2Fimages%2Fconcrete%2Fprofessional-concrete-contractors-houston-tx.jpg&w=1440&q=70"
+          imageSrcSet="/_next/image?url=%2Fimages%2Fconcrete%2Fprofessional-concrete-contractors-houston-tx.jpg&w=640&q=70 640w, /_next/image?url=%2Fimages%2Fconcrete%2Fprofessional-concrete-contractors-houston-tx.jpg&w=1080&q=70 1080w, /_next/image?url=%2Fimages%2Fconcrete%2Fprofessional-concrete-contractors-houston-tx.jpg&w=1440&q=70 1440w"
+          imageSizes="(max-width: 640px) 640px, (max-width: 1024px) 1024px, 1440px"
           fetchPriority="high"
         />
       </head>
