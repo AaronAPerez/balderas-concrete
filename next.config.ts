@@ -5,7 +5,8 @@ const nextConfig: NextConfig = {
   images: {
     formats: ["image/avif", "image/webp"], // Prefer AVIF (smaller) over WebP
     // Device sizes optimized for common breakpoints - removed oversized options
-    deviceSizes: [640, 750, 828, 1080, 1200, 1920],
+    deviceSizes: [640, 750, 828, 1080, 1200, 1440, 1920],
+    qualities: [70, 75],
     // Image sizes for thumbnails and smaller images
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
     minimumCacheTTL: 31536000, // 1 year cache for optimized images

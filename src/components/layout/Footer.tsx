@@ -23,14 +23,14 @@ export function Footer() {
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-12 ">
           {/* Company info */}
           <div>
- {/* Logo */}
+          {/* Logo */}
           <Link href="/" className="flex items-center gap-1">
             <Image
               src="/images/logo/logo.png"
               alt="Balderas Concrete"
               width={56}
               height={56}
-              className="drop-shadow-sm"
+              className="drop-shadow-sm h-auto"
             />
             <div className="flex flex-col">
               <span className="font-bold text-xl text-[#1A2A3A] hidden sm:block drop-shadow-sm">
@@ -177,12 +177,15 @@ export function Footer() {
             <p>
               &copy; {currentYear} {siteConfig.name}. All rights reserved.
             </p>
-            <div className="flex gap-6">
+            <div className="flex flex-wrap justify-center gap-4 sm:gap-6">
               <Link href="/privacy" className="hover:text-accent transition-colors">
                 Privacy Policy
               </Link>
               <Link href="/terms" className="hover:text-accent transition-colors">
                 Terms of Service
+              </Link>
+              <Link href="/accessibility" className="hover:text-accent transition-colors">
+                Accessibility
               </Link>
             </div>
           </div>
