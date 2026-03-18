@@ -3,7 +3,7 @@ import { siteConfig } from "@/src/lib/constants";
 
 export const metadata: Metadata = {
   title: "Contact Us",
-  description: `Get in touch with ${siteConfig.name} for a free estimate on your concrete project. Serving Houston and surrounding areas within 75 miles.`,
+  description: `Get in touch with ${siteConfig.name} for an estimate on your concrete project. Serving Houston and surrounding areas within 75 miles.`,
 };
 
 export default function ContactLayout({

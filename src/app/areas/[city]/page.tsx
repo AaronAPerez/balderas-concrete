@@ -153,9 +153,9 @@ export default function ServiceAreaPage() {
                 href="/contact"
                 size="lg"
                 className="bg-orange text-white hover:bg-orange/90"
-                onClick={() => trackCTAClick("Get Free Estimate", `area-${cityData.slug}`)}
+                onClick={() => trackCTAClick("Get Estimate", `area-${cityData.slug}`)}
               >
-                Get a Free Estimate
+                Get an Estimate
               </Button>
               <Button
                 href={`tel:${contactInfo.phoneRaw}`}
@@ -352,7 +352,7 @@ export default function ServiceAreaPage() {
       {/* CTA Banner */}
       <CTABanner
         title={`Ready to Start Your ${cityData.name} Project?`}
-        subtitle="Contact us today for a free estimate. We serve residential, commercial, and industrial projects throughout the area."
+        subtitle="Contact us today for an estimate. We serve residential, commercial, and industrial projects throughout the area."
       />
     </>
   );
