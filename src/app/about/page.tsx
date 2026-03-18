@@ -206,7 +206,7 @@ export default function AboutPage() {
                 }
               >
                 <Image
-                  src="/images/concrete/professional-concrete-contractors-houston-tx.webp"
+                  src="/images/concrete/concrete-driveway-installation-houston-tx.webp"
                   alt="Balderas Concrete team at work"
                   fill
                   className="object-cover"
