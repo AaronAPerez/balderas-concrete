@@ -198,14 +198,6 @@ npm run build
 npm run start
 ```
 
-## Development Principles
-
-- **Performance**: Target 100 Lighthouse scores across all categories
-- **Accessibility**: WCAG compliance, screen reader compatibility, keyboard navigation
-- **Mobile-First**: Responsive design with mobile-friendly touch targets
-- **SEO**: Structured data, dynamic sitemaps, optimized meta tags
-- **Code Quality**: TypeScript, ESLint, documented components
-
 ## License
 
 Private - All rights reserved.
