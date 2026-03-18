@@ -8,11 +8,12 @@ import { services } from "@/src/lib/constants";
 import { motion, useReducedMotion } from "framer-motion";
 import { FadeInSection, smoothEasing } from "@/src/components/ui/animations";
 
-// Image mappings for each service category
+// SEO-optimized image mappings for each service category
+// Using .jpg format for images that display correctly (not sideways)
 const serviceImages: Record<string, string> = {
-  earthwork: "/images/concrete/1000037663.jpg",
-  "turnkey-concrete": "/images/concrete/1000035716.jpg",
-  "underground-utilities": "/images/concrete/1000035719.jpg",
+  earthwork: "/images/concrete/stamped-concrete-work-houston-texas.jpg",
+  "turnkey-concrete": "/images/concrete/professional-concrete-contractors-houston-tx.jpg",
+  "underground-utilities": "/images/concrete/residential-concrete-patio-installation-houston.jpg",
 };
 
 /**

@@ -206,7 +206,7 @@ export default function AboutPage() {
                 }
               >
                 <Image
-                  src="/images/concrete/1000035716.jpg"
+                  src="/images/concrete/professional-concrete-contractors-houston-tx.jpg"
                   alt="Balderas Concrete team at work"
                   fill
                   className="object-cover"
