@@ -50,19 +50,19 @@ export default function ServiceAreasPage() {
 
   return (
     <>
-      {/* Hero Section */}
-      <section className="relative py-16 lg:py-24 bg-brand overflow-hidden">
+      {/* Hero Section - centered to match other page headers */}
+      <section className="relative py-8 lg:py-16 bg-brand overflow-hidden">
         <Container>
           <motion.div
-            className="max-w-4xl"
+            className="text-center max-w-3xl mx-auto"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: smoothEasing }}
           >
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">
+            <h1 className="text-4xl sm:text-5xl font-bold text-white pb-6">
               Service Areas
             </h1>
-            <p className="text-xl text-white/90 leading-relaxed max-w-3xl">
+            <p className="text-xl text-white/90 leading-relaxed">
               Balderas Concrete proudly serves the Greater Houston metropolitan
               area. We provide professional concrete, earthwork, and underground
               utility services within {serviceAreaRadius}.

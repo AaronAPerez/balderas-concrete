@@ -18,12 +18,15 @@ function getBlurDataUrl(imagePath: string): string | undefined {
   return fileName ? blurPlaceholders[fileName as keyof typeof blurPlaceholders] : undefined;
 }
 
-// Preview images for the gallery section
-// Note: Avoid using hero image (1000035716.jpg) to prevent duplicate loading
+// Preview images for the gallery section - all 6 project images
+// Using .jpg format for images that display correctly (not sideways)
 const previewImages = [
-  { src: "/images/concrete/1000037656.jpg", alt: "Concrete driveway project" },
-  { src: "/images/concrete/1000035719.jpg", alt: "Concrete patio installation" },
-  { src: "/images/concrete/1000037663.jpg", alt: "Stamped concrete work" },
+  { src: "/images/concrete/professional-concrete-contractors-houston-tx.jpg", alt: "Professional concrete contractors at work in Houston TX" },
+  { src: "/images/concrete/residential-concrete-patio-installation-houston.jpg", alt: "Residential concrete patio installation in Houston" },
+  { src: "/images/concrete/concrete-driveway-installation-houston-tx.avif", alt: "Concrete driveway installation project in Houston TX" },
+  { src: "/images/concrete/concrete-foundation-work-houston.webp", alt: "Concrete foundation work in Houston" },
+  { src: "/images/concrete/commercial-concrete-construction-houston.webp", alt: "Commercial concrete construction in Houston" },
+  { src: "/images/concrete/stamped-concrete-work-houston-texas.jpg", alt: "Stamped decorative concrete work in Houston Texas" },
 ];
 
 /**

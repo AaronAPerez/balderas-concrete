@@ -38,7 +38,7 @@ export function LocalBusinessSchema() {
       closes: "18:00",
     },
     priceRange: "$$",
-    image: `${siteConfig.url}/images/concrete/1000035716.jpg`,
+    image: `${siteConfig.url}/images/concrete/professional-concrete-contractors-houston-tx.jpg`,
     logo: `${siteConfig.url}/logo.png`,
     sameAs: [
       // Add social media URLs when available
