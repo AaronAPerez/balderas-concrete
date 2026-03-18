@@ -59,7 +59,7 @@ export function HeroSection({
           priority
           fetchPriority="high"
           quality={70}
-          sizes="(max-width: 640px) 640px, (max-width: 1024px) 1024px, 1920px"
+          sizes="(max-width: 640px) 640px, (max-width: 1024px) 1024px, 1440px"
           placeholder="blur"
           blurDataURL={getBlurDataUrl(backgroundImage)}
         />
