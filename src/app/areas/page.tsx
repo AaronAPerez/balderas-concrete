@@ -72,7 +72,7 @@ export default function ServiceAreasPage() {
       </section>
 
       {/* Service Areas Grid */}
-      <section className="py-16 lg:py-24 bg-white">
+      <section className="py-16 lg:py-24">
         <Container>
           <motion.div
             className="text-center mb-12"
@@ -100,7 +100,7 @@ export default function ServiceAreasPage() {
               <motion.div key={city.slug} variants={itemVariants}>
                 <Link
                   href={`/areas/${city.slug}`}
-                  className="block p-4 bg-slate-50 rounded-lg hover:bg-brand hover:text-white transition-all duration-200 group text-center"
+                  className="block p-4 bg-slate-50 rounded-full hover:bg-brand hover:text-white transition-all duration-200 group text-center border border-slate-200 shadow-sm hover:shadow-md hover:border-brand/30 cursor-pointer"
                 >
                   <span className="font-medium text-slate-900 group-hover:text-white transition-colors">
                     {city.name}

@@ -58,8 +58,11 @@ export function HeroSection({
           className="object-cover"
           priority
           fetchPriority="high"
-          quality={60}
-          sizes="(max-width: 480px) 480px, (max-width: 768px) 768px, (max-width: 1024px) 1024px, 1440px"
+          quality={55}
+          // Optimized sizes for actual viewport widths
+          // Mobile devices typically display at 100vw
+          // Larger screens may have constraints
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 100vw"
           placeholder="blur"
           blurDataURL={getBlurDataUrl(backgroundImage)}
         />
