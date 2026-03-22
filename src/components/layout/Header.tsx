@@ -39,7 +39,8 @@ export function Header() {
               alt="Balderas Concrete"
               width={56}
               height={56}
-              className="drop-shadow-sm h-auto"
+              loading="eager"
+              className="drop-shadow-sm w-auto h-auto"
             />
             <div className="flex flex-col">
               <span className="font-bold text-xl text-[#1A2A3A] hidden sm:block drop-shadow-sm">

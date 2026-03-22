@@ -1,7 +1,7 @@
 "use client";
 
 import Script from "next/script";
-import { useEffect } from "react";
+import { useEffect, useCallback } from "react";
 import { reportWebVitals } from "@/src/lib/webVitals";
 
 interface GoogleAnalyticsProps {
@@ -10,31 +10,61 @@ interface GoogleAnalyticsProps {
 
 /**
  * Google Analytics 4 Component
- * Loads GA4 script and initializes web vitals reporting
+ *
+ * Performance optimized loading strategy:
+ * - Uses 'lazyOnload' strategy to defer loading until browser is idle
+ * - This reduces Total Blocking Time (TBT) and improves Lighthouse Performance score
+ * - Web Vitals reporting is initialized after GA loads via onLoad callback
+ *
+ * The 'lazyOnload' strategy uses requestIdleCallback when available,
+ * loading analytics only when the main thread is idle.
  */
 export function GoogleAnalytics({ gaId }: GoogleAnalyticsProps) {
-  // Initialize Web Vitals reporting after GA loads
-  useEffect(() => {
-    // Small delay to ensure gtag is available
-    const timer = setTimeout(() => {
-      reportWebVitals();
-    }, 1000);
+  // Initialize Web Vitals reporting after GA script loads
+  const handleGALoad = useCallback(() => {
+    // Defer Web Vitals to next idle period to avoid blocking
+    if (typeof requestIdleCallback !== "undefined") {
+      requestIdleCallback(() => reportWebVitals(), { timeout: 3000 });
+    } else {
+      // Fallback for browsers without requestIdleCallback
+      setTimeout(() => reportWebVitals(), 2000);
+    }
+  }, []);
 
-    return () => clearTimeout(timer);
+  // Safety net: ensure Web Vitals runs even if GA fails to load
+  useEffect(() => {
+    const fallbackTimer = setTimeout(() => {
+      if (typeof window !== "undefined" && !("gtag" in window)) {
+        reportWebVitals();
+      }
+    }, 5000);
+
+    return () => clearTimeout(fallbackTimer);
   }, []);
 
   return (
     <>
+      {/*
+        Using 'lazyOnload' strategy for optimal performance:
+        - Loads after page is interactive and browser is idle
+        - Reduces TBT by deferring non-critical script parsing
+        - Better for Core Web Vitals than 'afterInteractive'
+      */}
       <Script
         src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}
-        strategy="afterInteractive"
+        strategy="lazyOnload"
+        onLoad={handleGALoad}
       />
-      <Script id="google-analytics" strategy="afterInteractive">
+      <Script id="google-analytics" strategy="lazyOnload">
         {`
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
-          gtag('config', '${gaId}');
+          gtag('config', '${gaId}', {
+            page_path: window.location.pathname,
+            // Disable third-party cookies to improve Best Practices score
+            cookie_flags: 'SameSite=Strict;Secure'
+          });
         `}
       </Script>
     </>

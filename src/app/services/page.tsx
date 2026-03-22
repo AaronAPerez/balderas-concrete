@@ -12,8 +12,8 @@ import { FadeInSection, smoothEasing } from "@/src/components/ui/animations";
 // Using .webp format for images that display correctly (not sideways)
 const serviceImages: Record<string, string> = {
   earthwork: "/images/concrete/stamped-concrete-work-houston-texas.webp",
-  "turnkey-concrete": "/images/concrete/professional-concrete-contractors-houston-tx.webp",
-  "underground-utilities": "/images/concrete/residential-concrete-patio-installation-houston.webp",
+  "turnkey-concrete": "/images/concrete/professional-concrete-contractors-houston-tx.jpg",
+  "underground-utilities": "/images/concrete/residential-concrete-patio-installation-houston.jpg",
 };
 
 /**
@@ -276,7 +276,7 @@ export default function ServicesPage() {
 
           {/* Staggered quality badges */}
           <motion.div
-            className="grid sm:grid-cols-3 gap-6 max-w-3xl mx-auto"
+            className="grid sm:grid-cols-3 gap-6 max-w-3xl mx-auto pt-8"
             variants={badgesContainerVariants}
             initial="hidden"
             whileInView="visible"
