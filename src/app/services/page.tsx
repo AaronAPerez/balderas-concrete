@@ -12,8 +12,8 @@ import { FadeInSection, smoothEasing } from "@/src/components/ui/animations";
 // Using .webp format for images that display correctly (not sideways)
 const serviceImages: Record<string, string> = {
   earthwork: "/images/concrete/stamped-concrete-work-houston-texas.webp",
-  "turnkey-concrete": "/images/concrete/professional-concrete-contractors-houston-tx.jpg",
-  "underground-utilities": "/images/concrete/residential-concrete-patio-installation-houston.jpg",
+  "turnkey-concrete": "/images/concrete/professional-concrete-contractors-houston-tx.webp",
+  "underground-utilities": "/images/concrete/residential-concrete-patio-installation-houston.webp",
 };
 
 /**

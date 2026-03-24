@@ -43,7 +43,7 @@ function getBlurDataUrl(imagePath: string): string | undefined {
 export function HeroSection({
   title,
   subtitle,
-  backgroundImage = "/images/concrete/professional-concrete-contractors-houston-tx.jpg",
+  backgroundImage = "/images/concrete/professional-concrete-contractors-houston-tx.webp",
   primaryCta = { text: "Get an Estimate", href: "/contact" },
   secondaryCta = { text: "View Our Work", href: "/gallery" },
 }: HeroSectionProps) {

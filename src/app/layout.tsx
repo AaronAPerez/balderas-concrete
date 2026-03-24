@@ -8,6 +8,7 @@ import { Footer } from "@/src/components/layout/Footer";
 import { GoogleAnalytics } from "@/src/components/analytics/GoogleAnalytics";
 import { Analytics } from '@vercel/analytics/next';
 import { LocalBusinessSchema } from "@/src/components/seo/LocalBusinessSchema";
+import { FloatingContactButton } from "@/src/components/features/FloatingContactButton";
 import { siteConfig } from "@/src/lib/constants";
 import { Toaster } from "sonner";
 
@@ -105,7 +106,7 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white/95 backdrop-blur-sm border border-slate-200`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white`}
       // className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white/95 backdrop-blur-sm border border-slate-200 dark:bg-[#121212]/95  dark:border-slate-700`}
       >
         {process.env.NEXT_PUBLIC_GA_ID && (
@@ -127,6 +128,8 @@ export default function RootLayout({
             <Analytics />
           </main>
           <Footer />
+          {/* Floating contact button - sticky bottom-right */}
+          <FloatingContactButton />
           {/* Toast notification container - positioned top-right for visibility */}
           <Toaster
             position="top-right"

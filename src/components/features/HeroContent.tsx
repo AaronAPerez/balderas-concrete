@@ -91,7 +91,7 @@ export function HeroContent({
       >
         {/* Animated title with text outline for visibility */}
         <motion.h1
-          className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight"
+          className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight"
           style={{ WebkitTextStroke: '1px #6B7280', paintOrder: 'stroke fill' }}
           variants={titleVariants}
         >

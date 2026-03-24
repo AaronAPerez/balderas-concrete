@@ -115,6 +115,18 @@ export function trackCTAClick(ctaName: string, location: string) {
 }
 
 /**
+ * Track SMS/text message clicks
+ * Use this when a user clicks an sms: link
+ */
+export function trackSMSClick(location: string) {
+  trackEvent("sms_click", "Contact", location);
+
+  if (process.env.NODE_ENV === "development") {
+    console.log(`[Analytics] SMS click from: ${location}`);
+  }
+}
+
+/**
  * Track email link clicks
  */
 export function trackEmailClick(location: string) {

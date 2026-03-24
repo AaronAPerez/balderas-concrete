@@ -190,6 +190,28 @@ export function Footer() {
             </div>
           </div>
         </div>
+
+         {/* AP Designs Credit */}
+        <div className="my-8 px-4 flex items-center justify-center gap-2 text-sm text-[#2C4557] ">
+          <span>Website by</span>
+          <a
+            href="https://www.aaronaperez.dev/?utm_source=footer"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 font-medium hover:text-[#6B7280] transition-colors focus:outline-none focus:text-[#6B7280]"
+          >
+            <Image
+              src="/icons/AP-Designs-Icon-48x48.svg"
+              alt="AP Designs Logo"
+              width={20}
+              height={20}
+              className="w-5 h-5 inline-flex rounded-full"
+              loading="lazy"
+              decoding="async"
+            />
+            AP Designs
+          </a>
+        </div>
       </div>
     </footer>
   );
