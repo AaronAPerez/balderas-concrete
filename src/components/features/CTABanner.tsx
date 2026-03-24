@@ -86,7 +86,7 @@ export function CTABanner({
 
           {/* Animated subtitle */}
           <motion.p
-            className="pt-5 text-slate-300 text-lg leading-relaxed max-w-2xl mx-auto"
+            className="pt-5 text-slate-100 text-lg leading-relaxed max-w-2xl mx-auto"
             variants={textVariants}
           >
             {subtitle}

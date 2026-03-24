@@ -191,3 +191,5 @@ select option[value=""] {
 select option:not([value=""]) {
   color: var(--foreground);
 }
+
+
