@@ -59,10 +59,10 @@ export function HeroSection({
           priority
           fetchPriority="high"
           quality={55}
-          // Optimized sizes for actual viewport widths
-          // Mobile devices typically display at 100vw
-          // Larger screens may have constraints
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 100vw"
+          // Optimized sizes for actual rendered dimensions
+          // Mobile: 450px matches Lighthouse-reported display size
+          // Tablet/Desktop: full viewport width for hero coverage
+          sizes="(max-width: 640px) 450px, (max-width: 1024px) 100vw, 100vw"
           placeholder="blur"
           blurDataURL={getBlurDataUrl(backgroundImage)}
         />
