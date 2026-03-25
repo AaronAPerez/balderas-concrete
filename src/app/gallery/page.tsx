@@ -13,6 +13,7 @@ const galleryImages = [
   { src: "/images/concrete/residential-concrete-patio-installation-houston.webp", alt: "Residential concrete patio installation project in Houston" },
   { src: "/images/concrete/concrete-driveway-installation-houston-tx.webp", alt: "Concrete driveway installation project in Houston TX" },
   { src: "/images/concrete/concrete-foundation-work-houston.webp", alt: "Concrete foundation work in Houston" },
+  { src: "/images/concrete/concrete-foundation-work-houston-texas.webp", alt: "Concrete foundation work in Houston, Texas" },
   { src: "/images/concrete/commercial-concrete-construction-houston.webp", alt: "Commercial concrete construction in Houston" },
   { src: "/images/concrete/stamped-concrete-work-houston-texas.webp", alt: "Stamped decorative concrete work in Houston Texas" },
 ];
