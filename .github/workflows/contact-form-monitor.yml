@@ -1,0 +1,73 @@
+# Contact Form Health Monitor
+#
+# Runs every 30 minutes and calls the deep health check endpoint.
+# If the endpoint returns a non-200 status (unhealthy), an alert email is
+# sent to aaronperezdev@gmail.com via the Resend API.
+#
+# Required GitHub Secrets (Settings → Secrets and variables → Actions):
+#   RESEND_API_KEY  — same key used in .env.local
+#
+# Required GitHub Variables (Settings → Secrets and variables → Actions → Variables):
+#   PRODUCTION_URL  — https://balderasconcrete.com  (no trailing slash)
+
+name: Contact Form Health Monitor
+
+on:
+  schedule:
+    # Runs every 30 minutes  ┐
+    - cron: "*/30 * * * *"   # ┘ UTC time
+  workflow_dispatch: # Allow manual trigger from the GitHub Actions UI
+
+jobs:
+  health-check:
+    name: Health Check
+    runs-on: ubuntu-latest
+
+    steps:
+      # ── 1. Call the deep health endpoint ─────────────────────────────────
+      - name: Check /api/health?deep=true
+        id: health
+        run: |
+          PRODUCTION_URL="${{ vars.PRODUCTION_URL || 'https://balderasconcrete.com' }}"
+          HTTP_STATUS=$(curl -s \
+            -o /tmp/health_response.json \
+            -w "%{http_code}" \
+            "${PRODUCTION_URL}/api/health?deep=true")
+
+          echo "status_code=${HTTP_STATUS}" >> "$GITHUB_OUTPUT"
+          echo "--- Health check response (HTTP ${HTTP_STATUS}) ---"
+          cat /tmp/health_response.json
+
+      # ── 2. Send alert email if unhealthy ──────────────────────────────────
+      - name: Send alert email on failure
+        if: steps.health.outputs.status_code != '200'
+        env:
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+        run: |
+          RESPONSE_BODY=$(cat /tmp/health_response.json)
+          STATUS_CODE="${{ steps.health.outputs.status_code }}"
+          TIMESTAMP=$(date -u '+%Y-%m-%d %H:%M:%S UTC')
+          PRODUCTION_URL="${{ vars.PRODUCTION_URL || 'https://balderasconcrete.com' }}"
+
+          # Write alert payload to a temp file to avoid shell-escaping issues
+          cat > /tmp/alert_payload.json << ENDJSON
+          {
+            "from": "Balderas Concrete Alerts <no-reply@mail.balderasconcrete.com>",
+            "to": ["aaronperezdev@gmail.com"],
+            "subject": "🚨 Contact Form Alert – Balderas Concrete (HTTP ${STATUS_CODE})",
+            "html": "<h2 style='color:#c0392b'>Contact Form Health Check Failed</h2><p>The automated health check returned a non-200 response, which means the contact form may not be working correctly.</p><table style='border-collapse:collapse;width:100%'><tr><td style='padding:8px;border:1px solid #ddd'><strong>Status Code</strong></td><td style='padding:8px;border:1px solid #ddd'>${STATUS_CODE}</td></tr><tr><td style='padding:8px;border:1px solid #ddd'><strong>Time (UTC)</strong></td><td style='padding:8px;border:1px solid #ddd'>${TIMESTAMP}</td></tr><tr><td style='padding:8px;border:1px solid #ddd'><strong>URL Checked</strong></td><td style='padding:8px;border:1px solid #ddd'>${PRODUCTION_URL}/api/health?deep=true</td></tr></table><h3>Response Body</h3><pre style='background:#f4f4f4;padding:12px;border-radius:4px;overflow:auto'>${RESPONSE_BODY}</pre><hr/><p style='color:#666;font-size:12px'>Balderas Concrete – Automated Monitor via GitHub Actions</p>",
+            "text": "CONTACT FORM ALERT\n\nStatus Code: ${STATUS_CODE}\nTime: ${TIMESTAMP}\nURL: ${PRODUCTION_URL}/api/health?deep=true\n\nResponse:\n${RESPONSE_BODY}\n\n-- Balderas Concrete Automated Monitor"
+          }
+          ENDJSON
+
+          curl -s -X POST https://api.resend.com/emails \
+            -H "Authorization: Bearer ${RESEND_API_KEY}" \
+            -H "Content-Type: application/json" \
+            -d @/tmp/alert_payload.json
+
+      # ── 3. Fail the workflow if unhealthy (visible in GitHub UI) ──────────
+      - name: Fail workflow if unhealthy
+        if: steps.health.outputs.status_code != '200'
+        run: |
+          echo "Health check failed with HTTP ${{ steps.health.outputs.status_code }}"
+          exit 1

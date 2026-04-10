@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/src/lib/prisma";
+import { Resend } from "resend";
 
 /**
  * Health Check Endpoint for UptimeRobot Monitoring
@@ -55,21 +56,33 @@ async function checkDatabase(): Promise<ServiceStatus> {
 }
 
 /**
- * Check email service configuration
+ * Check email service — validates Resend API key by calling the API,
+ * not just checking env var presence. No email is sent.
  */
-function checkEmailConfig(): ServiceStatus {
+async function checkEmailService(): Promise<ServiceStatus> {
   const hasApiKey = !!process.env.RESEND_API_KEY;
   const hasFromEmail = !!process.env.EMAIL_FROM;
   const hasNotificationEmail = !!process.env.CONTACT_NOTIFICATION_EMAIL;
 
-  if (hasApiKey && hasFromEmail && hasNotificationEmail) {
-    return { status: "up" };
+  if (!hasApiKey || !hasFromEmail || !hasNotificationEmail) {
+    return { status: "down", message: "Missing email configuration env vars" };
   }
 
-  return {
-    status: "down",
-    message: "Missing email configuration",
-  };
+  const start = Date.now();
+  try {
+    const resend = new Resend(process.env.RESEND_API_KEY);
+    // List API keys — lightweight call that verifies the key without sending any email
+    const { error } = await resend.apiKeys.list();
+    if (error) {
+      return { status: "down", message: error.message };
+    }
+    return { status: "up", latency: Date.now() - start };
+  } catch (err) {
+    return {
+      status: "down",
+      message: err instanceof Error ? err.message : "Resend API unreachable",
+    };
+  }
 }
 
 /**
@@ -97,12 +110,11 @@ export async function GET(request: Request) {
     });
   }
 
-  // Deep health check - test all services
-  const [databaseStatus] = await Promise.all([
+  // Deep health check - test all services in parallel
+  const [databaseStatus, emailStatus] = await Promise.all([
     checkDatabase(),
+    checkEmailService(),
   ]);
-
-  const emailStatus = checkEmailConfig();
 
   // Determine overall health
   const services = {
